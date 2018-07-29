@@ -1,0 +1,25 @@
+{
+  "name": "example-auth-routes",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
+    "@packy-tang/vue-tinymce": "lpreterite/vue-tinymce",
+    "axios": "^0.16.1",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "mysql": "^2.16.0",
+    "node-sass": "^4.9.2",
+    "nuxt-edge": "latest",
+    "sass-loader": "^7.0.3",
+    "vue-html5-editor": "^1.1.1",
+    "vue-tinymce": "^1.0.5",
+    "vue-tinymce-editor": "^1.6.2",
+    "vue-wysiwyg": "^1.7.2",
+    "vueditor": "^0.3.1"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start"
+  }
+}
