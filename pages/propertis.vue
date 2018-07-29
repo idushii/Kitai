@@ -20,6 +20,15 @@
         <p v-for="item in $store.getters.categoris" :key="`cat-${item.id}`"><b>{{item.Title}}</b> {{item.Info}}</p>
       </div>
     </card>
+    <card>
+      <div slot="title"> Общие </div>
+      <div slot="content">
+        <p>Размер шрифта</p>
+        <p>Цвет шрифта</p>
+        <p>Фоновое изображение</p>
+        <p>Фоновый цвет</p>
+      </div>
+    </card>
   </div>
 </template>
 
