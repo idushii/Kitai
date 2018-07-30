@@ -1,5 +1,5 @@
 <template>
-  <card class="EditItem" :close=close @close="EventClose">
+  <card class="EditItem" :save="save ? EventClose : () => {}">
     <div v-if="title" slot="title">{{title}}</div>
     <input type="text" v-model="Item.Quest" placeholder="Вопрос">
     <div class="Info">
@@ -31,7 +31,9 @@ export default {
     id: { type: Number, default: null },
     index: { type: Number, default: null },
     close: { type: Boolean, default: false },
+    save: { type: [Function, Boolean], default: false },
     title: { type: String, default: "" },
+    item: { type: [Object, Boolean], default: false },
   },
   data: () => ({
     Item: {},
@@ -42,9 +44,11 @@ export default {
     }
   },
   async created() {
-    if (this.Item.Text === undefined)                     await this.$store.dispatch('GET_TEST_LIST');
-    if (this.Item && this.Item.Variant_1 === undefined)   await this.$store.dispatch('GET_TEST_INFO', this.id);
+    if (this.item) { this.Item = {...this.item}; return; }
     this.Item = this.$store.getters.test_item(this.id, this.index);
+    if (this.Item.Quest === undefined)                    await this.$store.dispatch('GET_TEST_LIST');
+    if (this.Item && this.Item.Variant_1 === undefined)   await this.$store.dispatch('GET_TEST_INFO', this.id);
+    this.Item = {...this.$store.getters.test_item(this.id, this.index)};//*/
   },
   async mounted() { 
     await this.$nextTick()
@@ -57,7 +61,8 @@ export default {
   methods: {
     EventClose() {
       this.Item.Info = this.$refs.Vueditor.getContent()
-      this.$emit('save', this.Item)
+      if (this.save) this.save(this.Item)
+      return this.Item
     }
   }
 }

@@ -25,3 +25,5 @@ let config = {
 };
 
 Vue.use(Vueditor, {});
+
+import { createEditor } from 'vueditor'

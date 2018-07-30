@@ -1,21 +1,27 @@
 <template>
-  <div>
-    <card>
-      <div slot="title" close>Изменить описание теста</div>
-      <div slot="content">
-        <edit-info />
-      </div>
-    </card>
+  <div class="EditInfo">
+    <card title :back="`/Test/${$route.params.id}/Start`" :save=save>Изменить описание теста</card>
+    <test-edit-info :id=$route.params.id*1 close @close=save />
   </div>
 </template>
 
 <script>
-//import EditInfo from "~/components/Test/EditInfo.vue";
+import TestEditInfo from '~/components/Test/EditInfo.vue'
 export default {
   name: 'EditInfo',
   layout: 'document',
   components: {
-    EditInfo
+    TestEditInfo
+  },
+  methods: {
+    async save(Item) {
+      await this.$store.dispatch(`SAVE_TEST_INFO`, Item)
+      this.$router.push(`/Test/${this.$route.params.id}/Start`)
+    }
   }
 }
 </script>
+
+<style>
+  .EditInfo .card { margin-bottom: 1rem; }
+</style>

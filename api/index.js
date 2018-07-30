@@ -145,6 +145,16 @@ router.post('/Save/TestItem/', (req, res) => {
   });//*/
 })
 
+router.post('/Save/TestInfo/', (req, res) => {
+  let collumns = ['idCategory', 'Title', 'Info', 'InfoFull']
+    .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
+
+  connection.query(`UPDATE testings SET ? WHERE id='${req.body.id}'`, collumns, function(err, rows, fields) {
+    if (err) return res.status(401).json({ message: 'Ошибка запроса', info: err }); 
+    return res.json({result: true});
+  });//*/
+})
+
 // Export the server middleware
 export default {
   path: '/api',

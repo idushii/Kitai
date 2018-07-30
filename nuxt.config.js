@@ -42,5 +42,6 @@ export default {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: 'http://localhost:3000/',
   },
-  plugins: ['~/plugins/global.js', {src: '~plugins/no-ssr', ssr: false}]
+  plugins: ['~/plugins/global.js', {src: '~plugins/no-ssr', ssr: false}],
+  store: true
 }

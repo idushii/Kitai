@@ -1,2 +1,6 @@
 .nuxt
 node_modules
+
+sayana-nuxt.code-workspace
+
+.gitignore

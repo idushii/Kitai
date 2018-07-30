@@ -1,6 +1,6 @@
 <template>
   <div>
-    <card :next="`Page/0`" :edit="isAuth" edit-link="./EditInfo" next-text="Пройти тест">
+    <card :next="`Page/0`" :edit="isAuth" :edit-link="`/Test/${id}/EditInfo`" next-text="Пройти тест">
       <div slot="title">{{info.Title}}</div>
       <div slot="content" v-html="info.InfoFull" />
     </card>

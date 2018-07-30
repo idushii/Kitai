@@ -1,6 +1,6 @@
 <template>
   <div>
-    <edit-item title="Изменить вопрос теста" close :id=id :index=index @save=save />
+    <edit-item title="Изменить вопрос теста" :save=save :id=id :index=index />
   </div>
 </template>
 

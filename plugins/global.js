@@ -5,7 +5,9 @@ Vue.component('card', card)
 
 Vue.mixin({
   computed: {
-    isAuth() { return !! this.$store.getters.USER }
+    isAuth() { 
+      return true //!! this.$store.getters.USER 
+    }
   }
 })
 

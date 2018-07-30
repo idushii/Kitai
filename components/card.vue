@@ -1,8 +1,9 @@
 <template>
-  <div class="card" :class="{'card-title': title}">
+  <div class="card" :class="{'card-title': title, isFloatToTop}" :style="{backgroundColor: backgroundColor ? backgroundColor : ''}">
     <div class="title" v-if="!title && $slots.title"><slot name="title">Заголовок</slot>
       <img class="icon" src="/close.svg" alt="" v-if="close" @click="$emit('close')">
       <img class="icon" src="/pen.svg" alt="" v-if="edit" @click="actionEdit">
+      <img class="icon" src="/ok.svg" alt="" v-if="save" @click="save">
     </div>
     <div v-if="!title" class="content" :class="{'has-title': $slots.title}">
       <slot 
@@ -18,6 +19,8 @@
     </div>
     <slot v-if="title">Заголовок</slot>
     <img class="icon" src="/pen.svg" alt="" v-if="edit && title" @click="$emit('edit')">
+    <img class="icon left" src="/back.svg" alt="" v-if="back && title" @click="$router.push(back)">
+    <img class="icon" src="/ok.svg" alt="" v-if="save && title" @click="save">
   </div>
 </template>
 
@@ -31,9 +34,23 @@ export default {
     editLink: { type: String, default: '' },
     next: { type: String, default: '' }, 
     nextText: { type: String, default: 'Дальше' }, 
+    backgroundColor: { type: String, default: '' }, 
+    back: { type: String, default: '' },
+    save: { type: [Function, Boolean], default: false },
   },
+  data: () => ({
+    isFloatToTop: false,
+  }),
   mounted() {
-    //console.log(this)
+    if (this.title) {
+      let thisCard = this;
+      if (window.pageYOffset > thisCard.$el.getBoundingClientRect().top) thisCard.isFloatToTop = true;
+      window.onscroll = function() {
+        if (Math.abs(thisCard.$el.getBoundingClientRect().top - window.pageYOffset) < 10) {
+          thisCard.isFloatToTop = !thisCard.isFloatToTop;
+        }
+      }
+    }
   },
   methods: {
     actionEdit() {
@@ -51,7 +68,8 @@ export default {
 .card {
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);  
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 
   .title {
     font-size: 1.2rem; font-style: italic; text-shadow: 5px 5px 10px grey;
@@ -86,8 +104,14 @@ export default {
 .card-title {
   /*margin-bottom: 1rem;*/
   font-size: 1.5rem; font-style: italic; text-align: center; text-shadow: 5px 5px 10px grey;
-  .icon { width: 1.5rem; float: right; cursor: pointer; }
+  .icon { 
+    width: 1.5rem; float: right; cursor: pointer; 
+    &.left { float: left; }
+  }
 }
 
+.isFloatToTop {
+  position: fixed; top: 0px; z-index: 100; width: calc(80vw - 2rem); min-width: calc(900px - 2rem);
+}
 
 </style>

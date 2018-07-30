@@ -10,15 +10,22 @@ export const mutations = {
   SET_MENU(state, pages) { state.pages = pages; },
   SET_CATEGORIS(state, categoris) { state.categoris = categoris; },
   SET_TEST_LIST(state, TestList) { state.TestList = TestList; },
-  SET_TEST_INFO(state, {id, Items}) { 
+  SET_TEST_ITEMS(state, {id, Items}) { 
     let index = state.TestList.reduce( (result, test, index) => test.id == id ? index : result, null );
     if (index !== null) state.TestList[index].Items = Items
+    return Items
   },
-  SET_TEST_INFO_ONE(state, Item) {
+  SET_TEST_INFO(state, Info) {
+    console.log({commit: 'SET_TEST_INFO', payload: Info})
+    let indexTest = state.TestList.reduce( (result, test, index) => test.id == Info.id ? index : result, null );
+    if (indexTest !== null) { state.TestList[indexTest] = {...state.TestList[indexTest], ...Info}; }
+  },
+  SET_TEST_INFO_ITEM(state, Item) {
+    console.log({commit: 'SET_TEST_INFO_ITEM', payload: Item})
     let indexTest = state.TestList.reduce( (result, test, index) => test.id == Item.idTest ? index : result, null );
-    if (indexTest) {
+    if (indexTest !== null) {
       let indexItem = state.TestList[indexTest].Items.reduce( (result, item, index) => item.id == Item.id ? index : result, null );
-      if (indexItem) {
+      if (indexItem !== null) {
         state.TestList[indexTest].Items[indexItem] = Item
       }
     }
@@ -34,6 +41,7 @@ export const getters = {
   test_item: (state, getters) => (id, index) => {
     console.log({ getter: 'test_item', payload: {id, index} })
     if (getters.test(id)) {
+      console.log({...getters.test(id)})
       if (getters.test(id).Items) return getters.test(id).Items[index]
       else return {}
     } else return null
@@ -91,14 +99,26 @@ export const actions = {
     console.log({action: 'GET_TEST_INFO'})
     //if (!getters.isLoadTestList) await dispatch('GET_TEST_LIST')
     let data = await this.$axios.$get(`/api/Test/${id}/Items`);
-    return commit('SET_TEST_INFO', {Items: data, id})
+    return commit('SET_TEST_ITEMS', {Items: data, id})
   },
 
   async SAVE_TEST_ITEM({commit}, Item) {
     let data = await this.$axios.$post(`api/Save/TestItem`, Item)
-    if (data.result) commit('SET_TEST_INFO_ONE', Item)
+    if (data.result) commit('SET_TEST_INFO_ITEM', Item)
     return data.result ? true : data
+  },
+  async SAVE_TEST_INFO({commit}, Info) {
+    let data = await this.$axios.$post(`api/Save/TestInfo`, Info)
+    if (data.result) commit('SET_TEST_INFO', Info)
+    return data.result ? true : data
+  },
+  async SAVE_TEST({commit}, Test) {
+    let data = await this.$axios.$post(`api/Save/Test`, Test) // Надо реализовать серверную часть
+    //if (data.result) commit('SET_TEST_INFO', Info)
+    //return data.result ? true : data
   }
+
+  
 
   
 }

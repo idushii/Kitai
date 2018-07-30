@@ -23,10 +23,13 @@ body, html { margin: 0px; padding: 0px; background-color: rgba(255, 255, 100, 0.
   #content { 
     margin: 0px auto; margin-top: -25vh;
     min-width: 900px; width: 80vw; 
-    background-color: white; 
     /*min-height: 80vh;*/
   }
 
  }
 
+</style>
+
+<style>
+.card { background-color: rgba(255, 255, 255, .9) !important;  }
 </style>
