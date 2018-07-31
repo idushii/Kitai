@@ -2,7 +2,12 @@
   <div class="TestEdit">
     <card title back="/Page/Testing" :save=save>Изменить тест</card>
     <test-edit-info ref=TestEditInfo :id=id />
-    <edit-item v-if="Items && Items.length" v-for="(item, index) in  Items" :key="`item-${index}`" :id="id" :index="index" ref=EditItem :item=item />
+    <edit-item 
+      v-if="Items && Items.length && !item.isHide" 
+      v-for="(item, index) in  Items" :key="`item-${index}`"
+      :id="id" :index="index" 
+      ref=EditItem :item=item :close=hideItem
+    />
   </div>
 </template>
 
@@ -19,7 +24,7 @@ export default {
     //Items: []
   }),
   asyncData({ req, params, store }) {
-    return store.dispatch('GET_TEST_INFO', params.id).then(() => ({Items: store.getters.test(params.id).Items}))
+    return store.dispatch('GET_TEST_INFO', params.id).then(() => ({Items: store.getters.test(params.id).Items.map(item => ({...item, isHide: false}))}))
   },
   async created() {
     //this.Items = await this.$store.dispatch('GET_TEST_INFO', this.id).then(() => this.$store.getters.test(this.id).Items)
@@ -31,6 +36,9 @@ export default {
         Test.Items.push(item.EventClose())
       }
       this.$store.dispatch('SAVE_TEST', Test)
+    },
+    hideItem(index) {
+      this.Items[index].isHide = true
     }
   },
   components: {

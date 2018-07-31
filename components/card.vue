@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="{'card-title': title, isFloatToTop}" :style="{backgroundColor: backgroundColor ? backgroundColor : ''}">
     <div class="title" v-if="!title && $slots.title"><slot name="title">Заголовок</slot>
-      <img class="icon" src="/close.svg" alt="" v-if="close" @click="$emit('close')">
+      <img class="icon" src="/close.svg" alt="" v-if="close" @click="EventClose">
       <img class="icon" src="/pen.svg" alt="" v-if="edit" @click="actionEdit">
       <img class="icon" src="/ok.svg" alt="" v-if="save" @click="save">
     </div>
@@ -29,7 +29,7 @@ export default {
   name: 'card',
   props: { 
     title: { type: Boolean, default: false }, 
-    close: { type: Boolean, default: false }, 
+    close: { type: [Function, Boolean], default: false }, 
     edit: { type: Boolean, default: false },
     editLink: { type: String, default: '' },
     next: { type: String, default: '' }, 
@@ -59,6 +59,10 @@ export default {
       } else {
         this.$emit('edit')
       }
+    },
+    EventClose() {
+      if (typeof(this.close) == 'function') this.close()
+      else this.$emit('close')
     }
   }
 }

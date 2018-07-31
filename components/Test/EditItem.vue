@@ -1,6 +1,6 @@
 <template>
-  <card class="EditItem" :save="save ? EventClose : () => {}">
-    <div v-if="title" slot="title">{{title}}</div>
+  <card class="EditItem" :save="save ? EventClose : false" :close="close ? EventClose : false">
+    <div v-if="title || close" slot="title">{{title}}</div>
     <input type="text" v-model="Item.Quest" placeholder="Вопрос">
     <div class="Info">
       <no-ssr placeholder="Редактор загружается...">
@@ -30,9 +30,9 @@ export default {
   props: {
     id: { type: Number, default: null },
     index: { type: Number, default: null },
-    close: { type: Boolean, default: false },
+    close: { type: [Boolean, Function], default: false },
     save: { type: [Function, Boolean], default: false },
-    title: { type: String, default: "" },
+    title: { type: String, default: "Вопрос" },
     item: { type: [Object, Boolean], default: false },
   },
   data: () => ({
@@ -62,6 +62,7 @@ export default {
     EventClose() {
       this.Item.Info = this.$refs.Vueditor.getContent()
       if (this.save) this.save(this.Item)
+      if (this.close) this.close(this.index)
       return this.Item
     }
   }
