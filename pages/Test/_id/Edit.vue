@@ -8,12 +8,14 @@
       :id="id" :index="index" 
       ref=EditItem :item=item :close=hideItem
     />
+    <fab-add />
   </div>
 </template>
 
 <script>
 import TestEditInfo from '~/components/Test/EditInfo.vue'
 import EditItem from '~/components/Test/EditItem.vue'
+import FabAdd from '~/components/btns/fab-add.vue'
 export default {
   name: 'Test-Edit',
   layout: 'document',
@@ -43,7 +45,8 @@ export default {
   },
   components: {
     TestEditInfo,
-    EditItem
+    EditItem,
+    FabAdd
   }
 }
 </script>
