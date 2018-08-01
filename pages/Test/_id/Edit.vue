@@ -32,13 +32,12 @@ export default {
     //this.Items = await this.$store.dispatch('GET_TEST_INFO', this.id).then(() => this.$store.getters.test(this.id).Items)
   },
   methods: {
-    save() {
+    async save() {
       let Test = { ...this.$refs.TestEditInfo.EventClose(), Items: [] }
-      for(let item of this.$refs.EditItem) {
-        Test.Items.push(item.EventClose())
-      }
-      console.log(Test)
-      this.$store.dispatch('SAVE_TEST', Test)
+      for(let item of this.$refs.EditItem) { Test.Items.push(item.EventClose()) }
+      let result = await this.$store.dispatch('SAVE_TEST', Test)
+      if (result === true) this.$router.push(`/Page/Testing`)
+      else alert(JSON.stringify(result))
     },
     hideQuest(index) {
       this.Items[index].isHide = true
