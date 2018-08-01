@@ -1,5 +1,5 @@
 <template>
-  <div id="fab-add">
+  <div id="fab-add" @click='$emit("click")'>
     +
   </div>
 </template>

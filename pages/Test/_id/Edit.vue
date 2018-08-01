@@ -3,12 +3,12 @@
     <card title back="/Page/Testing" :save=save>Изменить тест</card>
     <test-edit-info ref=TestEditInfo :id=id />
     <edit-item 
-      v-if="Items && Items.length && !item.isHide" 
+      v-if="Items && Items.length" :is-hide="item.isHide"
       v-for="(item, index) in  Items" :key="`item-${index}`"
       :id="id" :index="index" 
-      ref=EditItem :item=item :close=hideItem
+      ref=EditItem :item=item :close=hideQuest
     />
-    <fab-add />
+    <fab-add @click="addNewQuest" />
   </div>
 </template>
 
@@ -37,10 +37,26 @@ export default {
       for(let item of this.$refs.EditItem) {
         Test.Items.push(item.EventClose())
       }
+      console.log(Test)
       this.$store.dispatch('SAVE_TEST', Test)
     },
-    hideItem(index) {
+    hideQuest(index) {
       this.Items[index].isHide = true
+    },
+    addNewQuest() {
+      this.Items.push({
+        id: null, 
+        idTest: this.id,
+        Quest: "",
+        Info: "",
+        OrderItem: 0,
+        NumberTrue: 0,
+        Variant_1: "",
+        Variant_2: "",
+        Variant_3: "",
+        Variant_4: "",
+        isHide: false,
+      })
     }
   },
   components: {

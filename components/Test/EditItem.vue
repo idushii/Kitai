@@ -1,10 +1,11 @@
 <template>
-  <card class="EditItem" :save="save ? EventClose : false" :close="close ? EventClose : false">
+  <card class="EditItem" :save="save ? EventClose : false" :close="close ? EventClose : false" v-show="!isHide">
     <div v-if="title || close" slot="title">{{title}}</div>
     <input type="text" v-model="Item.Quest" placeholder="Вопрос">
     <div class="Info">
       <no-ssr placeholder="Редактор загружается...">
-        <Vueditor ref="Vueditor"></Vueditor>
+        <!--Vueditor ref="Vueditor"></Vueditor-->
+        <div :id="`editor-${index}`"></div>
       </no-ssr>
    </div>
     <div>
@@ -34,9 +35,11 @@ export default {
     save: { type: [Function, Boolean], default: false },
     title: { type: String, default: "Вопрос" },
     item: { type: [Object, Boolean], default: false },
+    isHide: { type: Boolean, default: false },
   },
   data: () => ({
     Item: {},
+    Editor: {},
   }),
   computed: {
     Variants() {
@@ -44,6 +47,7 @@ export default {
     }
   },
   async created() {
+    await this.$nextTick()
     if (this.item) { this.Item = {...this.item}; return; }
     this.Item = this.$store.getters.test_item(this.id, this.index);
     if (this.Item.Quest === undefined)                    await this.$store.dispatch('GET_TEST_LIST');
@@ -52,15 +56,18 @@ export default {
   },
   async mounted() { 
     await this.$nextTick()
-    await this.$nextTick()
-    let this_ = this; this_.$refs.Vueditor.setContent(this.Item.Info)
-    setTimeout(() => {
-      this_.$refs.Vueditor.setContent(this.Item.Info)
-    }, 1000)
+    let vueditor = require('vueditor')
+    this.Editor = vueditor.createEditor(`#editor-${this.index}`, {
+      uploadUrl: '',
+      id: `editor-${this.index}`,
+      classList: []
+    });//*/
+    this.Editor.setContent(this.Item.Info)
   },
   methods: {
     EventClose() {
-      this.Item.Info = this.$refs.Vueditor.getContent()
+      this.Item.Info = this.Editor.getContent()
+      this.Item.isHide = this.isHide
       if (this.save) this.save(this.Item)
       if (this.close) this.close(this.index)
       return this.Item
