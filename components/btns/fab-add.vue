@@ -13,7 +13,7 @@ export default {
 <style lang="scss" scoped>
   div {
     border-radius: 2rem; 
-    background-color: rgba(236, 103, 103, 0.5);
+    background-color: #f44336;
     position: fixed;
     right: 1rem;
     bottom: 1rem;
@@ -24,10 +24,10 @@ export default {
     font-weight: bold;
     cursor: pointer;
     transition: all .2s;
-    box-shadow: 0rem 0rem .5rem black;
+    box-shadow: 0rem 0rem .5rem white;
     &:hover {
       user-select: none;
-      box-shadow: 0rem 0rem .3rem black;
+      box-shadow: 0rem 0rem .3rem white;
     }
   }
 </style>
