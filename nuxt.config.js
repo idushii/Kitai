@@ -41,7 +41,8 @@ export default {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: 'http://localhost:8080/',
-    baseURL: 'http://192.168.43.13:80/',
+    //baseURL: 'http://192.168.43.13:80/',
+    //baseURL: 'http://169.254.185.70:80/',
   },
   plugins: ['~/plugins/global.js', {src: '~plugins/no-ssr', ssr: false}],
   store: true
