@@ -29,6 +29,12 @@ export const mutations = {
         state.TestList[indexTest].Items[indexItem] = Item
       }
     }
+  },
+  SET_TEST(state, Test) {
+    console.log({commit: 'SET_TEST', payload: Test})
+    let index = state.TestList.reduce( (result, test, index) => test.id == Test.id ? index : result, null );
+    if (index === null) { state.TestList.push(Test) } else { state.TestList[index] = Test }
+    return Test
   }
 }
 
@@ -113,9 +119,12 @@ export const actions = {
     return data.result ? true : data
   },
   async SAVE_TEST({commit}, Test) {
-    let data = await this.$axios.$post(`api/Save/Test`, Test) // Надо реализовать серверную часть
-    //if (data.result) commit('SET_TEST_INFO', Info)
-    //return data.result ? true : data
+    let {data, status} = await this.$axios.post(`api/Save/Test`, Test) // Надо реализовать серверную часть
+    if (status == 200) {
+      commit('SET_TEST', Test)
+      return true
+    } else 
+      return data
   }
 
   
