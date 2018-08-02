@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="placeholder" v-if="isFloatToTop" :style="{width: `calc(${position.width}px - 2rem)`, height: position.height+'px'}"></div>
+    <div class="placeholder" v-if="isFloatToTop" :style="{width: `calc(${position.width}px - 2 * var(--gap))`, height: position.height+'px'}"></div>
     <div 
       class="card" :class="{'card-title': title, isFloatToTop}"
       :style="{backgroundColor: backgroundColor ? backgroundColor : '', left: position.left+'px', width: `calc(${position.width}px - 2rem)`}"
@@ -84,12 +84,11 @@ export default {
 <style lang="scss" scoped>
 .card {
   padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: var(--card-background);
+  box-shadow: var(--card-shadow);
 
   .title {
-    font-size: 1.2rem; font-style: italic; text-shadow: 5px 5px 10px grey;
+    font-size: 1.2rem; font-style: italic; text-shadow: var(--card-title-text-shadow);
 
     .icon { width: 1rem; float: right; margin-top: -1.2rem; cursor: pointer; }
   }
@@ -120,7 +119,7 @@ export default {
 
 .card-title {
   /*margin-bottom: 1rem;*/
-  font-size: 1.5rem; font-style: italic; text-align: center; text-shadow: 5px 5px 10px grey;
+  font-size: 1.5rem; font-style: italic; text-align: center; text-shadow: var(--card-title-text-shadow);
   .icon { 
     width: 1.5rem; float: right; cursor: pointer; 
     &.left { float: left; }
@@ -131,4 +130,7 @@ export default {
   position: fixed; top: 0px; z-index: 100; /*width: calc(80vw - 2rem); min-width: calc(900px - 2rem);*/
 }
 
+.placeholder {
+  margin-bottom: var(--gap);
+}
 </style>
