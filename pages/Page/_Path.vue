@@ -1,6 +1,6 @@
 <template>
 <div>
-  <card title clings :edit="isAuth" @edit=edit>{{Page.Title}}</card>
+  <card title :clings="isAuth" :edit="isAuth" @edit=edit>{{Page.Title}}</card>
   <card> 
     <div slot="content" class="page-html" v-html="Page.Text" />
   </card>
