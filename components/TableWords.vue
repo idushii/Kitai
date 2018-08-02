@@ -12,7 +12,7 @@
         </tr>
     </thead>
       <transition-group name="word" tag="tbody">
-        <tr v-for="(word, index) in list" :key="`word-${word.Pinyin}`" :key1="`word-${word.Pinyin}`" @click="Open(word)">
+        <tr v-for="(word, index) in list" :key="`word-${word.Pinyin}`" :key1="`word-${word.Pinyin}`" @click="open(word)">
           <td>{{index+1}}</td>
           <td>{{word.Pinyin}}</td>
           <td class="word">{{word.Hieroglyph}}</td>
@@ -32,7 +32,7 @@ export default {
   name: 'TableWords',
   props: {
     list: { type: Array, default: () => [] },
-    Open: { type: Function, default: () => {} }
+    open: { type: Function, default: () => {} }
   },
   components: {
     audioFile,
