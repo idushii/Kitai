@@ -1,42 +1,9 @@
-import express from 'express'
-import mysql from 'mysql'
-
-// Create express router
-const router = express.Router()
-
-let mysqlCofig = {
-  host     : 'mysql.j693917.myjino.ru',
-  user     : 'j693917',
-  password : '7654321',
-  database: 'j693917_sayana'
-}
-
-mysqlCofig = {
-  host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database: 'j693917_sayana'
-}
-
-var connection = mysql.createConnection(mysqlCofig);
-connection.connect();
-
-// Transform req & res to have the same API as express
-// So we can use res.status() & res.json()
-var app = express()
-router.use((req, res, next) => {
-  Object.setPrototypeOf(req, app.request)
-  Object.setPrototypeOf(res, app.response)
-  req.res = res
-  res.req = req
-  next()
-})
+import connection from './connection'
+import GET from './GET'
+import router from './router'
 
 // Add POST - /api/login
 router.post('/login', (req, res) => {
-  //var connection = mysql.createConnection(mysqlCofig);
-  //connection.connect();
-
   connection.query(`SELECT * FROM users WHERE Login = "${req.body.username}"`, function(err, rows, fields) {
     if (err) return res.status(401).json({ message: 'Ошибка запроса' }); 
     if (rows.length == 0) return res.status(401).json({ message: 'Такой пользователь не зарегистрирован' });
@@ -73,6 +40,9 @@ router.get('/pages', (req, res) => {
     return res.json(rows)
   });
 })
+
+router.get('/words', GET.Words)
+router.get('/WordsCategoris', GET.WordsCategoris)
 
 router.get('/page/:Path', (req, res) => {
   //var connection = mysql.createConnection(mysqlCofig);
