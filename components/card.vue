@@ -1,33 +1,41 @@
 <template>
-  <div class="card" :class="{'card-title': title, isFloatToTop}" :style="{backgroundColor: backgroundColor ? backgroundColor : ''}">
-    <div class="title" v-if="!title && $slots.title"><slot name="title">Заголовок</slot>
-      <img class="icon" src="/close.svg" alt="" v-if="close" @click="EventClose">
-      <img class="icon" src="/pen.svg" alt="" v-if="edit" @click="EventEdit">
-      <img class="icon" src="/ok.svg" alt="" v-if="save" @click="save">
-    </div>
-    <div v-if="!title" class="content" :class="{'has-title': $slots.title}">
-      <slot 
-        name="content" 
-        v-if="$slots.content"
-      >
-        Текст
-      </slot>
-      <slot> <div v-if="html" v-html="html"></div> </slot>
-      <div class="link-wrapp" v-if="next">
-        <nuxt-link :to=next> {{nextText}} </nuxt-link>
+<div>
+    <div class="placeholder" v-if="isFloatToTop" :style="{width: `calc(${position.width}px - 2rem)`, height: position.height+'px'}"></div>
+    <div 
+      class="card" :class="{'card-title': title, isFloatToTop}"
+      :style="{backgroundColor: backgroundColor ? backgroundColor : '', left: position.left+'px', width: `calc(${position.width}px - 2rem)`}"
+    >
+      <div class="title" v-if="!title && $slots.title"><slot name="title">Заголовок</slot>
+        <img class="icon" src="/close.svg" alt="" v-if="close" @click="EventClose">
+        <img class="icon" src="/pen.svg" alt="" v-if="edit" @click="EventEdit">
+        <img class="icon" src="/ok.svg" alt="" v-if="save" @click="save">
       </div>
+      <div v-if="!title" class="content" :class="{'has-title': $slots.title}">
+        <slot 
+          name="content" 
+          v-if="$slots.content"
+        >
+          Текст
+        </slot>
+        <slot> <div v-if="html" v-html="html"></div> </slot>
+        <div class="link-wrapp" v-if="next">
+          <nuxt-link :to=next> {{nextText}} </nuxt-link>
+        </div>
+      </div>
+      <slot v-if="title">Заголовок</slot>
+      <img class="icon" src="/pen.svg" alt="" v-if="edit && title" @click="EventEdit">
+      <img class="icon left" src="/back.svg" alt="" v-if="back && title" @click="EventBack">
+      <img class="icon" src="/ok.svg" alt="" v-if="save && title" @click="save">
     </div>
-    <slot v-if="title">Заголовок</slot>
-    <img class="icon" src="/pen.svg" alt="" v-if="edit && title" @click="EventEdit">
-    <img class="icon left" src="/back.svg" alt="" v-if="back && title" @click="EventBack">
-    <img class="icon" src="/ok.svg" alt="" v-if="save && title" @click="save">
-  </div>
+
+</div>
 </template>
 
 <script>
 export default {
   name: 'card',
   props: { 
+    clings: { type: Boolean, default: false },
     title: { type: Boolean, default: false }, 
     close: { type: [Function, String, Boolean], default: false }, 
     edit: { type: Boolean, default: false },
@@ -41,15 +49,17 @@ export default {
   },
   data: () => ({
     isFloatToTop: false,
+    position: {left: null, width: null, right: null, height: null}
   }),
   mounted() {
-    if (this.title) {
+    if (this.clings) {
       let thisCard = this;
+      let {width, top, left, height} = thisCard.$el.getBoundingClientRect()
+      this.position = {width, height, left, top}
       if (window.pageYOffset > thisCard.$el.getBoundingClientRect().top) thisCard.isFloatToTop = true;
-      window.onscroll = function() {
-        if (Math.abs(thisCard.$el.getBoundingClientRect().top - window.pageYOffset) < 20) {
-          thisCard.isFloatToTop = !thisCard.isFloatToTop;
-        }
+      window.onscroll = async function() {
+        if (window.pageYOffset > thisCard.position.top) { thisCard.isFloatToTop = true }
+        if (window.pageYOffset < thisCard.position.top) { thisCard.isFloatToTop = false }
       }
     }
   },
@@ -118,7 +128,7 @@ export default {
 }
 
 .isFloatToTop {
-  position: fixed; top: 0px; z-index: 100; width: calc(80vw - 2rem); min-width: calc(900px - 2rem);
+  position: fixed; top: 0px; z-index: 100; /*width: calc(80vw - 2rem); min-width: calc(900px - 2rem);*/
 }
 
 </style>
