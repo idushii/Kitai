@@ -1,6 +1,6 @@
 <template>
 <div>
-  <card title :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
+  <card title clings :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
   <card :html=Page.Text />
   <card>
     <div slot=title>Слова</div>

@@ -1,6 +1,6 @@
 <template>
   <div class="WrappPageEdit">
-    <card :save="close" :back="`/Page/${Page.Path}`" title>Изменить страницу</card>
+    <card :save="close" :back="`/Page/${Page.Path}`" title clings>Изменить страницу</card>
     <card>
       <input type="text" v-model="Page.Title" />
       <no-ssr placeholder="Редактор загружается...">

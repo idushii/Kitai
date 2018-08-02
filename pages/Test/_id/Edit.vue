@@ -1,6 +1,6 @@
 <template>
   <div class="TestEdit">
-    <card title back="/Page/Testing" :save=save>Изменить тест</card>
+    <card title clings back="/Page/Testing" :save=save>Изменить тест</card>
     <test-edit-info ref=TestEditInfo :id=id />
     <edit-item 
       v-if="Items && Items.length" :is-hide="item.isHide"

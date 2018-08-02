@@ -1,6 +1,6 @@
 <template>
   <div class="EditInfo">
-    <card title :back="`/Test/${$route.params.id}/Start`" :save=save>Изменить описание теста</card>
+    <card title clings :back="`/Test/${$route.params.id}/Start`" :save=save>Изменить описание теста</card>
     <test-edit-info :id=$route.params.id*1 close @close=save />
   </div>
 </template>
