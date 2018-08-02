@@ -1,5 +1,5 @@
 {
-  "name": "example-auth-routes",
+  "name": "nuxt-sayana",
   "dependencies": {
     "@nuxtjs/axios": "^5.3.1",
     "@packy-tang/vue-tinymce": "lpreterite/vue-tinymce",
@@ -18,8 +18,11 @@
     "vueditor": "^0.3.1"
   },
   "scripts": {
-    "dev": "nuxt -p 8080",
+    "dev": "nodemon --watch api --exec \" nuxt -p 8080 \" ",
     "build": "nuxt build",
     "start": "nuxt start"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
   }
 }
