@@ -66,11 +66,13 @@ body, html { margin: 0px; padding: 0px; background-color: rgba(255, 255, 100, 0.
 
 <style>
 :root {
-  --section-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+  --card-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
 
-  --select-background: white;
-  --main-background: rgba(100, 200, 0, 0.2);
-  --section-background: rgba(255, 255, 255, .5);
+  --select-background: rgba(100, 200, 0, .2);
+  --main-background: transparent;
+  --card-background: rgba(255, 255, 255, 0.5);
+
+  --card-title-text-shadow: 5px 5px 10px grey;
 
   --main-color: black;
   --link-color: rgba(0, 0, 0, .8);
