@@ -3,7 +3,7 @@
   <card title :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
   <card :html=Page.Text />
   <card>
-    <div slot=title>Список</div>
+    <div slot=title>Слова</div>
     <div slot="content">
       <div class="search">
         <input type="text" placeholder=" Поиск слова" @input="e => search.Text = e.target.value">
@@ -18,7 +18,7 @@
           @click="searchTag(tag)"
         >{{tag.Title}}</div>
       </div>
-      <table-words :list=searchResult />
+      <table-words class="words" :list=searchResult />
     </div>
   </card>
 </div>
@@ -85,74 +85,35 @@ export default {
 </script>
 
 <style scoped lang=scss>
-  section {
-    box-shadow: var(--section-shadow);
-    margin-bottom: var(--gap);
+  .search {
+    display: grid; grid-template-columns: 1fr auto; grid-gap: var(--gap);
 
-    &.selections {
-      .title {
-        font-size: 1.2rem;
-        font-style: italic;
-        text-align: center;
-        margin: 0px; padding: var(--gap);
-      }
+    &>* { padding: calc(var(--gap) / 4); }
 
-      .search {
-        display: grid; grid-template-columns: 1fr auto; grid-gap: var(--gap);
-        margin: 0 var(--gap);
-
-        &>* { padding: calc(var(--gap) / 4); }
-
-        input {width: 100%; }
-        select { min-width: 100px; width: 20vw; }
-      }
-
-      .WordsCategoris {
-        display: grid; grid-template-columns: repeat(7, 1fr); grid-gap: var(--gap);
-        text-align: center;
-        padding: var(--gap);
-
-        div {
-          border: 1px solid black;
-          padding: calc( var(--gap) / 4 );
-          cursor: pointer;
-          transition: all .2s;
-
-          &:hover { background-color: var(--select-background); }
-
-          &.select { background-color: var(--select-background); }
-        }
-      }
-      
-    }
-
-    &.words {
-
-
-      table {
-        width: 100%;
-
-        th {
-          border-top: 1px solid black;
-          border-bottom: 1px solid black;
-          padding: calc(var(--gap) / 2);
-        }
-
-        td { text-align: center; }
-        tr { cursor: pointer; transition: all .2s; }
-        tbody tr:hover { background-color: var(--select-background); }
-
-        .word {
-          font-size: 2rem;
-        }
-
-        .audio {
-          width: 300px;
-        }
-      }
-    }
-
+    input {width: 100%; }
+    select { min-width: 100px; width: 5vw; }
   }
+
+  .WordsCategoris {
+    display: grid; grid-template-columns: repeat(7, 1fr); grid-gap: var(--gap);
+    text-align: center;
+    padding-top: var(--gap);
+    
+
+    div {
+      border: 1px solid black;
+      padding: calc( var(--gap) / 4 );
+      cursor: pointer;
+      transition: all .2s;
+
+      &:hover { background-color: var(--select-background); }
+
+      &.select { background-color: var(--select-background); }
+    }
+  }
+  .words {
+    margin-top: var(--gap);
+  } 
 </style>
 
 <style>
@@ -163,6 +124,4 @@ export default {
   opacity: 0;
   transform: scale(.8) translateX(10rem);
 }
-
-
 </style>

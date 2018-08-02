@@ -40,3 +40,28 @@ export default {
 
 }
 </script>
+
+<style lang="scss" scoped>
+  table {
+    width: 100%;
+
+    th {
+      border-top: 1px solid black;
+      border-bottom: 1px solid black;
+      padding: calc(var(--gap) / 2);
+    }
+
+    td { text-align: center; }
+    tr { cursor: pointer; transition: all .2s; }
+    tbody tr:hover { background-color: var(--select-background); }
+
+    .word {
+      font-size: 2rem;
+    }
+
+    .audio {
+      width: 300px;
+    }
+  }
+
+</style>
