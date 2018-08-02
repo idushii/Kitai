@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     async close() {
-      this.Page.Text = this.$refs.Vueditor.getContent()
+      this.Page.Text = this.Editor.getContent()
       let answer = await this.$axios.$post(`/api/save/page/${this.Page.Path}`, this.Page)
       if (answer.result == true) this.$router.push(`/Page/${this.Page.Path}`)
       else alert(answer.message + ' ' +JSON.stringify(answer.info))
