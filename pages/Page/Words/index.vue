@@ -18,7 +18,7 @@
           @click="searchTag(tag)"
         >{{tag.Title}}</div>
       </div>
-      <table-words class="words" :list=searchResult />
+      <table-words class="words" :list=searchResult :open=openWord />
     </div>
   </card>
 </div>
@@ -74,7 +74,7 @@ export default {
     TableWords
   },
   methods: {
-    openWord(word) { this.$router.push({name: 'Word', params: { translate: word.translate }}) },
+    openWord(Word) { this.$router.push(`/Page/Words/${Word.Translate}`) },
     clearString(str) { return str.replace(/\r?\n/g, "") },
     searchTag(tag) {
       let index = this.search.WordsCategoris.indexOf(tag.id)
