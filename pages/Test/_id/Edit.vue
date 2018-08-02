@@ -5,7 +5,7 @@
     <edit-item 
       v-if="Items && Items.length" :is-hide="item.isHide"
       v-for="(item, index) in  Items" :key="`item-${index}`"
-      :id="id" :index="index" 
+      :id="id" :index="index" :title="`Вопрос #${index+1}`"
       ref=EditItem :item=item :close=hideQuest
     />
     <fab-add @click="addNewQuest" />
