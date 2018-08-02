@@ -1,5 +1,6 @@
 <template>
-  <audio class="audio-file" :src=src controls></audio>
+  <!--audio class="audio-file" :src=src controls></audio-->
+  <div></div>
 </template>
 
 <script>
