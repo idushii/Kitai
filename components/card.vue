@@ -19,7 +19,7 @@
     </div>
     <slot v-if="title">Заголовок</slot>
     <img class="icon" src="/pen.svg" alt="" v-if="edit && title" @click="$emit('edit')">
-    <img class="icon left" src="/back.svg" alt="" v-if="back && title" @click="$router.push(back)">
+    <img class="icon left" src="/back.svg" alt="" v-if="back && title" @click="EventBack">
     <img class="icon" src="/ok.svg" alt="" v-if="save && title" @click="save">
   </div>
 </template>
@@ -29,13 +29,13 @@ export default {
   name: 'card',
   props: { 
     title: { type: Boolean, default: false }, 
-    close: { type: [Function, Boolean], default: false }, 
+    close: { type: [Function, String, Boolean], default: false }, 
     edit: { type: Boolean, default: false },
     editLink: { type: String, default: '' },
     next: { type: String, default: '' }, 
     nextText: { type: String, default: 'Дальше' }, 
     backgroundColor: { type: String, default: '' }, 
-    back: { type: String, default: '' },
+    back: { type: [Function, String, Boolean], default: '' },
     save: { type: [Function, Boolean], default: false },
   },
   data: () => ({
@@ -46,7 +46,7 @@ export default {
       let thisCard = this;
       if (window.pageYOffset > thisCard.$el.getBoundingClientRect().top) thisCard.isFloatToTop = true;
       window.onscroll = function() {
-        if (Math.abs(thisCard.$el.getBoundingClientRect().top - window.pageYOffset) < 10) {
+        if (Math.abs(thisCard.$el.getBoundingClientRect().top - window.pageYOffset) < 20) {
           thisCard.isFloatToTop = !thisCard.isFloatToTop;
         }
       }
@@ -62,7 +62,13 @@ export default {
     },
     EventClose() {
       if (typeof(this.close) == 'function') this.close()
-      else this.$emit('close')
+      if (typeof(this.close) == 'boolean') this.$emit('close')
+      if (typeof(this.close) == 'string') this.$router.push(this.close)
+    },
+    EventBack() {
+      if (typeof(this.back) == 'function') this.back()
+      if (typeof(this.back) == 'boolean') this.$emit('back')
+      if (typeof(this.back) == 'string') this.$router.push(this.back)
     }
   }
 }
