@@ -2,7 +2,7 @@
   <div class="card" :class="{'card-title': title, isFloatToTop}" :style="{backgroundColor: backgroundColor ? backgroundColor : ''}">
     <div class="title" v-if="!title && $slots.title"><slot name="title">Заголовок</slot>
       <img class="icon" src="/close.svg" alt="" v-if="close" @click="EventClose">
-      <img class="icon" src="/pen.svg" alt="" v-if="edit" @click="actionEdit">
+      <img class="icon" src="/pen.svg" alt="" v-if="edit" @click="EventEdit">
       <img class="icon" src="/ok.svg" alt="" v-if="save" @click="save">
     </div>
     <div v-if="!title" class="content" :class="{'has-title': $slots.title}">
@@ -12,13 +12,13 @@
       >
         Текст
       </slot>
-      <slot></slot>
+      <slot> <div v-if="html" v-html="html"></div> </slot>
       <div class="link-wrapp" v-if="next">
         <nuxt-link :to=next> {{nextText}} </nuxt-link>
       </div>
     </div>
     <slot v-if="title">Заголовок</slot>
-    <img class="icon" src="/pen.svg" alt="" v-if="edit && title" @click="$emit('edit')">
+    <img class="icon" src="/pen.svg" alt="" v-if="edit && title" @click="EventEdit">
     <img class="icon left" src="/back.svg" alt="" v-if="back && title" @click="EventBack">
     <img class="icon" src="/ok.svg" alt="" v-if="save && title" @click="save">
   </div>
@@ -37,6 +37,7 @@ export default {
     backgroundColor: { type: String, default: '' }, 
     back: { type: [Function, String, Boolean], default: '' },
     save: { type: [Function, Boolean], default: false },
+    html: { type: String, default: '' }
   },
   data: () => ({
     isFloatToTop: false,
@@ -53,12 +54,8 @@ export default {
     }
   },
   methods: {
-    actionEdit() {
-      if (this.editLink) {
-        this.$router.push(this.editLink)
-      } else {
-        this.$emit('edit')
-      }
+    EventEdit() {
+      if (this.editLink) { this.$router.push(this.editLink); } else { this.$emit('edit'); }
     },
     EventClose() {
       if (typeof(this.close) == 'function') this.close()
