@@ -2,7 +2,7 @@
   <card class="EditItem" :save="save ? EventClose : false" :close="close ? EventClose : false" v-show="!isHide">
     <div v-if="title || close" slot="title">{{title}}</div>
     <input type="text" v-model="Item.Quest" placeholder="Вопрос">
-    <div class="Info">
+    <div class="Info" :style="{'min-height': heightQuest}">
       <no-ssr placeholder="Редактор загружается...">
         <!--Vueditor ref="Vueditor"></Vueditor-->
         <div :id="`editor-${index}`"></div>
@@ -36,6 +36,7 @@ export default {
     title: { type: String, default: "Вопрос" },
     item: { type: [Object, Boolean], default: false },
     isHide: { type: Boolean, default: false },
+    heightQuest: { type: [Boolean, String], default: false }
   },
   data: () => ({
     Item: {},
@@ -53,6 +54,7 @@ export default {
     if (this.Item.Quest === undefined)                    await this.$store.dispatch('GET_TEST_LIST');
     if (this.Item && this.Item.Variant_1 === undefined)   await this.$store.dispatch('GET_TEST_INFO', this.id);
     this.Item = {...this.$store.getters.test_item(this.id, this.index)};//*/
+    if (this.Editor.setContent) this.Editor.setContent(this.Item.Info)
   },
   async mounted() { 
     await this.$nextTick()
@@ -76,10 +78,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .EditItem .content {
     &>input, &>.Info { width: calc(100% - .5rem - 4px); margin: 0px; margin-bottom: 1rem; font-size: 1.2rem; padding: .2rem; }
-    &>.Info { font-size: 1rem; min-height: 50vh; }
+    &>.Info { font-size: 1rem; min-height: 250px; }
     &>div {
       display: grid; grid-gap: .5rem;
 
