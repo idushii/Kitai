@@ -3,6 +3,8 @@ export const state = () => ({
   pages: [],
   categoris: [],
   TestList: [],
+  Words: [],
+  WordsCategoris: []
 })
 
 export const mutations = {
@@ -35,7 +37,9 @@ export const mutations = {
     let index = state.TestList.reduce( (result, test, index) => test.id == Test.id ? index : result, null );
     if (index === null) { state.TestList.push(Test) } else { state.TestList[index] = Test }
     return Test
-  }
+  },
+  SET_WORDS(state, Items) { state.Words = Items },
+  SET_WORDS_CATEGORIS(state, Items) { state.WordsCategoris = Items },
 }
 
 export const getters = {
@@ -52,6 +56,10 @@ export const getters = {
       else return {}
     } else return null
   },
+  Words: (state, getters) => state.Words.map( word => (
+    {...word, tags: getters.WordsCategoris.filter( tag => word.Categoris.split(' ').map(id => id*1).indexOf(tag.id*1) != -1 )}
+  ) ),
+  WordsCategoris: state => state.WordsCategoris
 }
 
 export const actions = {
@@ -63,6 +71,8 @@ export const actions = {
     let data = await app.$axios.$get('api/pages'); commit('SET_MENU', data);
     data = await this.$axios.$get('/api/categoris'); commit('SET_CATEGORIS', data)
     data = await this.$axios.$get('/api/TestList'); commit('SET_TEST_LIST', data)
+    data = await this.$axios.$get('/api/Words'); commit('SET_WORDS', data)
+    data = await this.$axios.$get('/api/WordsCategoris'); commit('SET_WORDS_CATEGORIS', data)
 
     //dispatch('GET_MENU')
     //dispatch('GET_CATEGORIS')
@@ -88,6 +98,16 @@ export const actions = {
     let data = await this.$axios.$post('/api/pages')
     return commit('SET_MENU', data)
   },
+  async GET_WORDS({ commit }) {
+    console.log({action: 'GET_WORDS'})
+    let data = await this.$axios.$get('/api/Words')
+    return commit('SET_WORDS', data)
+  },
+  async GET_WORDS_CATEGORIS({ commit }) {
+    console.log({action: 'GET_WORDS_CATEGORIS'})
+    let data = await this.$axios.$get('/api/WordsCategoris')
+    return commit('SET_WORDS_CATEGORIS', data)
+  },
   async GET_MENU({ commit }) {
     console.log({action: 'GET_MENU'})
     let data = await this.$axios.$get('/api/pages')
@@ -107,7 +127,6 @@ export const actions = {
     let data = await this.$axios.$get(`/api/Test/${id}/Items`);
     return commit('SET_TEST_ITEMS', {Items: data, id})
   },
-
   async SAVE_TEST_ITEM({commit}, Item) {
     let data = await this.$axios.$post(`api/Save/TestItem`, Item)
     if (data.result) commit('SET_TEST_INFO_ITEM', Item)
