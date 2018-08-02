@@ -44,9 +44,16 @@ export default {
         }
         result = _result;
       }
-      if (this.search.WordsCategoris.length) result = result.filter( word=> {
-        let flag = true; for(let tag of this.search.WordsCategoris) if (word.WordsCategoris.indexOf(tag) == -1) flag = false; return flag;
-      })
+      if (this.search.WordsCategoris.length) {
+        let _result = [];
+        for(let word of result){
+          let flag = false;
+          for(let tag of this.search.WordsCategoris) if (word.Categoris.split(" ").map(id => id*1).indexOf(tag) != -1) flag = true;
+          if (flag) _result.push(word)
+        }
+
+        result = _result;
+      }
       return result;
     }
   },
@@ -67,16 +74,12 @@ export default {
     TableWords
   },
   methods: {
-    openWord(word) {
-      this.$router.push({name: 'Word', params: { translate: word.translate }})
-    },
-    clearString(str) {
-      return str.replace(/\r?\n/g, "")
-    },
+    openWord(word) { this.$router.push({name: 'Word', params: { translate: word.translate }}) },
+    clearString(str) { return str.replace(/\r?\n/g, "") },
     searchTag(tag) {
-      let index = this.search.WordsCategoris.indexOf(tag)
+      let index = this.search.WordsCategoris.indexOf(tag.id)
       if (index == -1) 
-        this.search.WordsCategoris.push(tag)
+        this.search.WordsCategoris.push(tag.id)
       else 
         this.search.WordsCategoris.splice(index, 1)
     }
