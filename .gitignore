@@ -1,5 +1,6 @@
 .nuxt
 node_modules
+static/words
 
 sayana-nuxt.code-workspace
 
