@@ -65,3 +65,13 @@ export default {
   }
 
 </style>
+
+<style>
+.word-item {
+  /*transition: all 10s;*/
+}
+.word-enter, .word-leave-to {
+  opacity: 0;
+  transform: scale(.9);
+}
+</style>
