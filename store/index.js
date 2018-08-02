@@ -59,7 +59,9 @@ export const getters = {
   Words: (state, getters) => state.Words.map( word => (
     {...word, tags: getters.WordsCategoris.filter( tag => word.Categoris.split(' ').map(id => id*1).indexOf(tag.id*1) != -1 )}
   ) ),
-  WordsCategoris: state => state.WordsCategoris
+  WordsCategoris: state => state.WordsCategoris,
+  WordsCategorisGyIDs: (state, getters) => ids => getters.WordsCategoris.filter( tag => ids.indexOf(tag.id*1) != -1 ),
+  WordByTranslate: state => Translate => state.Words.filter( word => word.Translate == Translate ).pop()
 }
 
 export const actions = {
