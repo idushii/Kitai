@@ -27,6 +27,6 @@ export default {
 </style>
 
 <style>
-  .page-html img { width: 100%; }
+  /*.page-html img { width: 100%; }*/
 </style>
 
