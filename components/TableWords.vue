@@ -19,7 +19,7 @@
           <td>{{word.Translate}}</td>
           <td>{{word.Level}}</td>
           <td>{{word.tags.map(tag => tag.Title).join(', ')}}</td>
-          <td class="audio"><audio-file :src="word.link" width="20" center /></td>
+          <td class="audio"><audio-file ref="audio" :src="word.Sound" width="20" center /></td>
         </tr>
       </transition-group>
   </table>
@@ -33,6 +33,8 @@ export default {
   props: {
     list: { type: Array, default: () => [] },
     open: { type: Function, default: () => {} }
+  },
+  methods: {
   },
   components: {
     audioFile,
