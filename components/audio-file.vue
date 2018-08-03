@@ -30,6 +30,7 @@ export default {
     box-shadow: 0 0 10px black;
     border-radius: 3rem;
     transition: all .2s;
+    margin: 10px;
   }
   #icon:hover { box-shadow: 0 0 5px black; }
 </style>
