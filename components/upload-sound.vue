@@ -8,7 +8,7 @@
 export default {
   name: 'audio-upload',
   props: {
-    name: { type: String, default: "name.mp3" }
+    name: { type: [String, Number], default: "name.mp3" }
   },
   methods: {
     select() {
