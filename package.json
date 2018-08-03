@@ -12,12 +12,7 @@
     "node-sass": "^4.9.2",
     "nuxt-edge": "latest",
     "path": "^0.12.7",
-    "sass-loader": "^7.0.3",
-    "vue-html5-editor": "^1.1.1",
-    "vue-tinymce": "^1.0.5",
-    "vue-tinymce-editor": "^1.6.2",
-    "vue-wysiwyg": "^1.7.2",
-    "vueditor": "^0.3.1"
+    "sass-loader": "^7.0.3"
   },
   "scripts": {
     "dev": "nodemon --watch api --exec \" nuxt -p 8080 \" ",

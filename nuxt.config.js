@@ -8,7 +8,10 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', content: 'Auth Routes example' }
-    ]
+    ],
+    script: [
+      { src: '/js/tinymce/tinymce.min.js' }
+    ],    
   },
   env: {
     //baseUrl: process.env.BASE_URL || 'http://localhost:3000'
