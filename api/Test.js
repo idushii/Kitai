@@ -11,14 +11,14 @@ export default {
   },
   ById: (req, res) => {
     console.log({query: 'Test.ById'})
-    connection.query(`SELECT * FROM categoris WHERE id="${req.params.id}"`, function(err, rows, fields) {
+    connection.query(`SELECT * FROM testings WHERE id="${req.params.id}"`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
     });
   },
   ByIdItems: (req, res) => {
     console.log({query: 'Test.ByIdItems'})
-    connection.query(`SELECT * FROM categoris WHERE idTest="${req.params.id}"`, function(err, rows, fields) {
+    connection.query(`SELECT * FROM testings_item WHERE idTest="${req.params.id}"`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
     });
@@ -113,6 +113,6 @@ export default {
   },
   New: (req, res) => {
     console.log({query: 'Test.New'})
-    
+
   }
 }
