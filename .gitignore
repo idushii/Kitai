@@ -7,3 +7,5 @@ static/img
 sayana-nuxt.code-workspace
 
 .gitignore
+
+*.exe
