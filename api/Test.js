@@ -1,29 +1,30 @@
 import connection from './connection'
 
 export default {
-  TestList: (req, res) => {
-    console.log({query: 'TestList'})
+  List: (req, res) => {
+    console.log({query: 'Test.List'})
     //return res.json({rows: []})
     connection.query(`SELECT * FROM testings`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
     });
   },
-  TestById: (req, res) => {
-    console.log({query: 'TestById'})
+  ById: (req, res) => {
+    console.log({query: 'Test.ById'})
     connection.query(`SELECT * FROM categoris WHERE id="${req.params.id}"`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
     });
   },
-  TestByIdItems: (req, res) => {
-    console.log({query: 'TestByIdItems'})
+  ByIdItems: (req, res) => {
+    console.log({query: 'Test.ByIdItems'})
     connection.query(`SELECT * FROM categoris WHERE idTest="${req.params.id}"`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
     });
   },
-  SaveTestItem: (req, res) => {
+  SaveItem: (req, res) => {
+    console.log({query: 'Test.SaveItem'})
     let collumns = ['OrderItem', 'Quest', 'Info', 'Variant_1', 'Variant_2', 'Variant_3', 'Variant_4', 'NumberTrue']
       .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
   
@@ -32,7 +33,8 @@ export default {
       return res.json({result: true});
     });//*/    
   },
-  SaveTestInfo: (req, res) => {
+  SaveInfo: (req, res) => {
+    console.log({query: 'Test.SaveInfo'})
     let collumns = ['idCategory', 'Title', 'Info', 'InfoFull']
       .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
   
@@ -41,7 +43,8 @@ export default {
       return res.json({result: true});
     });//*/
   },
-  SaveTest: async (req, res) => {
+  Save: async (req, res) => {
+    console.log({query: 'Test.Save'})
     let collumnsInfo = ['idCategory', 'Title', 'Info', 'InfoFull']
       .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
   
@@ -108,7 +111,8 @@ export default {
     //console.log(result);
     res.json({result});
   },
-  NewTest: (req, res) => {
-
+  New: (req, res) => {
+    console.log({query: 'Test.New'})
+    
   }
 }

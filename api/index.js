@@ -13,9 +13,9 @@ router.post('/mysql', Auth.TestMySQL)
 
 router.post('/Img/Upload', upload.Img)
 
-router.get('/pages', Page.Pages)
-router.get('/page/:Path', Page.PageByPath)
-router.post('/save/page/:Path', Page.SavePageByPath)
+router.get('/pages', Page.List)
+router.get('/page/:Path', Page.ByPath)
+router.post('/save/page/:Path', Page.SaveByPath)
 
 router.get('/words', Word.List)
 router.get('/WordsCategoris', Word.Categoris)
@@ -24,14 +24,14 @@ router.post('/Words/:id', Word.Save)
 
 router.get('/categoris', Category.List)
 
-router.get('/TestList', Test.TestList)
-router.get('/Test/:id', Test.TestById)
-router.get('/Test/:id/Items', Test.TestByIdItems)
+router.get('/TestList', Test.List)
+router.get('/Test/:id', Test.ById)
+router.get('/Test/:id/Items', Test.ByIdItems)
 
-router.post('/Save/TestInfo/', Test.SaveTestInfo)
-router.post('/Save/TestItem/', Test.SaveTestItem)
-router.post('/Save/Test/', Test.SaveTest)
-router.post('/New/Test/', Test.NewTest)
+router.post('/Save/TestInfo/', Test.SaveInfo)
+router.post('/Save/TestItem/', Test.SaveItem)
+router.post('/Save/Test/', Test.Save)
+router.post('/New/Test/', Test.New)
 
 // Export the server middleware
 export default {
