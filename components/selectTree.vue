@@ -1,15 +1,15 @@
 <template>
-  <div class="parents">
+  <div class="parents" :class="{isNotSelect}">
     <div class="parent" v-for="level1 in tree" :key="`item-${level1.id}`">
       <div @click="toggle(level1)">
-        <img :src="ids_.indexOf(level1.id) != -1 ? '/checkOk.svg' : '/checkNo.svg'">
-        {{level1.Title}} {{level1.Info}}
+        <img v-if="!isNotSelect" :src="ids_.indexOf(level1.id) != -1 ? '/checkOk.svg' : '/checkNo.svg'">
+        <template v-if="isFull"><b>{{level1.Title}}</b> {{level1.Info}}</template> <template v-else><span :title="level1.Info" >{{level1.Title}}</span></template>
       </div>
       <div class="childrens">
         <div class="children" v-for="level2 in level1.childrens" :key="`item-${level2.id}`">
           <div @click="toggle(level2)">
-            <img :src="ids_.indexOf(level2.id) != -1 ? '/checkOk.svg' : '/checkNo.svg'">
-            {{level2.Title}} {{level2.Info}}
+            <img v-if="!isNotSelect" :src="ids_.indexOf(level2.id) != -1 ? '/checkOk.svg' : '/checkNo.svg'">
+            <template v-if="isFull"><b>{{level2.Title}}</b> {{level2.Info}}</template> <template v-else><span :title="level2.Info" >{{level2.Title}}</span></template>
           </div>
         </div>
       </div>
@@ -21,15 +21,17 @@
 export default {
   name:'selectTree',
   props: {
-    ids: { type: String, default: null },
-    items: { type: Array, default: () => хъ }
+    ids: { type: String, default: "" },
+    items: { type: Array, default: () => [] },
+    isNotSelect: { type: Boolean, default: false },
+    isFull: { type: Boolean, default: true }
   },
   computed: {
     tree() {
       // Не больше двойной вложенности
       let result = [];
       for (let item of this.items) {
-        if (item.idParent === null) result.push({...item, childrens: []})
+        if (item.idParent === undefined || item.idParent === null) result.push({...item, childrens: []})
       }
 
       for (let itemParent of result) {
@@ -82,6 +84,10 @@ export default {
     .children {
       margin-top: .5rem;
     }
+  }
+
+  .isNotSelect {
+    * { cursor: default; }
   }
 
   img { width: 1rem; position: relative; top: 2px; }
