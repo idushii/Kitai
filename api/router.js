@@ -1,4 +1,5 @@
 import express from 'express'
+var path = require('path');
 
 // Create express router
 const router = express.Router()
@@ -13,5 +14,7 @@ router.use((req, res, next) => {
   res.req = req
   next()
 })
+
+app.use(express.static(path.join(__dirname, 'static')));
 
 export default router;
