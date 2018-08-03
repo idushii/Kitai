@@ -22,6 +22,14 @@ export default {
   axios: {
     // proxyHeaders: false
   },
+  router: {
+    extendRoutes (routes) {
+      for(let index in routes) {
+        if (routes[index].path == '/Page/Testing' ) routes[index].redirect = '/Test'
+      }
+      return routes
+    }
+  },
   /*
   ** Add server middleware
   ** Nuxt.js uses `connect` module as server
