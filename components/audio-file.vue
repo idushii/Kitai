@@ -1,18 +1,20 @@
 <template>
-  <div @click="play" id="icon"></div>
+  <div @click="play" id="icon" :style="{width: this.width+'px', height: this.width+'px', margin: center ? '10px auto' : '10px'}"></div>
 </template>
 
 <script>
 export default {
   name: 'audio-plaeeyr',
   props: {
-    src: { type: String, default: "" }
+    src: { type: String, default: "" },
+    width: { type: [String, Number], default: "40" },
+    center: { type: Boolean, default: false },
   },
   data: () => ({
     pleer: {}
   }),
   mounted() {
-    this.pleer = new Audio('/words/Airplane.mp3')
+    this.pleer = new Audio(this.src)
   },
   methods: {
     play() {
@@ -30,7 +32,6 @@ export default {
     box-shadow: 0 0 10px black;
     border-radius: 3rem;
     transition: all .2s;
-    margin: 10px;
   }
   #icon:hover { box-shadow: 0 0 5px black; }
 </style>
