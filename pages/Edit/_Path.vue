@@ -30,7 +30,7 @@ export default {
     await this.$nextTick()
     let thisEditor = this;
 
-    this.Editor = tinymce.init({
+    thisEditor.Editor = tinymce.init({
       selector: '#Editor',
       menubar: false,
       plugins: [
@@ -46,8 +46,9 @@ export default {
           thisEditor.Page.Text = tinymce.get('Editor').getContent()
         });
       }
-    });
+    })
   },
+  beforeDestroy() { tinymce.remove() },
   methods: {
     async close() {
       let answer = await this.$axios.$post(`/api/save/page/${this.Page.Path}`, this.Page)

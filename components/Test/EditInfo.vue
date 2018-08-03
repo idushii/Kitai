@@ -72,6 +72,7 @@ export default {
       }
     });
   },
+  beforeDestroy() { tinymce.remove() },
   methods: {
     setCategory(id) { this.Item.idCategory = id },
     EventClose() {

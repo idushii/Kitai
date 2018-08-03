@@ -75,6 +75,7 @@ export default {
       }
     });
   },
+  beforeDestroy() { tinymce.remove() },
   methods: {
     EventClose() {
       this.Item.isHide = this.isHide
