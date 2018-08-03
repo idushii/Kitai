@@ -8,10 +8,12 @@
         <div class="text">{{Word.Hieroglyph}}</div>
       </div>
       <div class="info">
-        <audio-file :src="Word.Sound" />
         <div class="pinin">Пиньин: <span>{{Word.Pinyin}}</span> </div>
         <div class="translate">Перевод: {{Word.Translate}} </div>
         <div class="tags">Категория: {{tags}} </div>
+        <div class="audio">
+          <audio-file :src="Word.Sound" center />
+        </div>
       </div>
     </section>
   </card>
@@ -20,6 +22,8 @@
 </template>
 
 <script>
+import audioFile from '~/components/audio-file.vue'
+
 export default {
   name: 'Word',
   layout: 'site',
@@ -30,6 +34,9 @@ export default {
     tags() {
       return this.$store.getters.WordsCategorisGyIDs(this.Word.Categoris.split(' ').map(id => id*1)).map( tag => tag.Title ).join(', ')
     }
+  },
+  components: {
+    audioFile
   }
 }
 </script>
@@ -44,6 +51,7 @@ section {
   .ieroglif {
     grid-area: ieroglif;
     text-align: center;
+    min-width: 20rem;
 
     .text {
       font-size: 10rem;
@@ -56,8 +64,8 @@ section {
     grid-area: info; padding: var(--gap); 
   }
 
-  .audio-file {
-    margin-bottom: 1rem;
+  .audio {
+    margin: 2rem;
   }
 }
 </style>
