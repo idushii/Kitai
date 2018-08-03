@@ -1,5 +1,10 @@
 <template>
-  <div @click="play" id="icon" :style="{width: this.width+'px', height: this.width+'px', margin: center ? '10px auto' : '10px'}"></div>
+<div>
+  <div 
+    @click.stop="play" 
+    id="icon" :style="{width: this.width+'px', height: this.width+'px', margin: center ? '10px auto' : '10px'}"
+  ></div>
+</div>
 </template>
 
 <script>
