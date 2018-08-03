@@ -1,6 +1,7 @@
 import connection from './connection'
 import GET from './GET'
 import router from './router'
+import upload from './upload'
 
 // Add POST - /api/login
 router.post('/login', (req, res) => {
@@ -43,6 +44,7 @@ router.get('/pages', (req, res) => {
 
 router.get('/words', GET.Words)
 router.get('/WordsCategoris', GET.WordsCategoris)
+router.post('/Words/Upload/:Name', upload.Word)
 
 router.get('/page/:Path', (req, res) => {
   //var connection = mysql.createConnection(mysqlCofig);
