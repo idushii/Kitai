@@ -1,9 +1,7 @@
 <template>
 <div>
   <card title :clings=isAuth :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
-  <card :html=Page.Text />
   <card>
-    <div slot=title>Слова</div>
     <div slot="content">
       <div class="search">
         <input type="text" placeholder=" Поиск слова" @input="e => search.Text = e.target.value">
@@ -21,6 +19,7 @@
       <table-words class="words" :list=searchResult :open=openWord />
     </div>
   </card>
+  <card :html=Page.Text />
 </div>
 </template>
 
