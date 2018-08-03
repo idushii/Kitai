@@ -40,6 +40,12 @@ export const mutations = {
   },
   SET_WORDS(state, Items) { state.Words = Items },
   SET_WORDS_CATEGORIS(state, Items) { state.WordsCategoris = Items },
+  SET_WORD(state, Word) {
+    console.log({commit: 'SET_WORD', payload: Word})
+    let index = state.Words.reduce( (result, word, index) => word.id == Word.id ? index : result, null );
+    if (index !== null) { state.Words[index] = Word; return { result: true, Element: Word } }
+    return { result: false, message: 'Невозможно обновить локальные данные слова'}
+  }
 }
 
 export const getters = {
@@ -109,6 +115,12 @@ export const actions = {
     console.log({action: 'GET_WORDS_CATEGORIS'})
     let data = await this.$axios.$get('/api/WordsCategoris')
     return commit('SET_WORDS_CATEGORIS', data)
+  },
+  async SET_WORD({commit}, Word) {
+    console.log({action: 'SET_WORD', payload: Word})
+    let result = await this.$axios.$post(`/api/Words/${Word.id}`, Word)
+    if (result.result) { commit('SET_WORD', Word); return { result: true } }
+    else return result
   },
   async GET_MENU({ commit }) {
     console.log({action: 'GET_MENU'})

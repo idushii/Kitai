@@ -12,5 +12,15 @@ export default {
     form.on('error', function(info) { return res.status(500).json({message: 'Ошибка загрузки аудио файла', info}) });
     form.on('end', function(file) { return res.json({result: true, Path: `/words/${name}`}); });
     form.parse(req);
+  },
+  Img(req, res) {
+    let name = ""
+    var form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '../static/img');
+
+    form.on('file', function(field, file) { fs.rename(file.path, path.join(form.uploadDir, file.name)); name = file.name; });
+    form.on('error', function(info) { return res.status(500).json({message: 'Ошибка загрузки файла изображения', info}) });
+    form.on('end', function(file) { return res.json({location: name}); });
+    form.parse(req);
   }
 }

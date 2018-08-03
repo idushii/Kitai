@@ -1,5 +1,6 @@
 import connection from './connection'
 import GET from './GET'
+import SAVE from './SAVE'
 import router from './router'
 import upload from './upload'
 
@@ -45,6 +46,10 @@ router.get('/pages', (req, res) => {
 router.get('/words', GET.Words)
 router.get('/WordsCategoris', GET.WordsCategoris)
 router.post('/Words/Upload/:Name', upload.Word)
+router.post('/Words/:id', SAVE.Word)
+
+router.post('/Img/Upload', upload.Img)
+
 
 router.get('/page/:Path', (req, res) => {
   //var connection = mysql.createConnection(mysqlCofig);
@@ -101,7 +106,7 @@ router.get('/Test/:id/Items', (req, res) => {
 router.post('/save/page/:Path', (req, res) => {
   //var connection = mysql.createConnection(mysqlCofig);
   //connection.connect();
-  connection.query(`UPDATE Pages SET Title = '${req.body.Title}', Text = '${req.body.Text}', ShowItem = '${req.body.ShowItem}' WHERE Path='${req.params.Path}'`, function(err, rows, fields) {
+  connection.query(`UPDATE Pages SET Title = '${req.body.Title}', Text = '${req.body.Text.replace(/\'/g, "\\'")}', ShowItem = '${req.body.ShowItem}' WHERE Path='${req.params.Path}'`, function(err, rows, fields) {
     if (err) return res.status(401).json({ message: 'Ошибка запроса', info: err }); 
     return res.json({result: true});
   });
