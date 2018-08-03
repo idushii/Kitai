@@ -4,8 +4,7 @@
     <input type="text" v-model="Item.Quest" placeholder="Вопрос">
     <div class="Info" :style="{'min-height': heightQuest}">
       <no-ssr placeholder="Редактор загружается...">
-        <!--Vueditor ref="Vueditor"></Vueditor-->
-        <div :id="`editor-${index}`"></div>
+        <textarea :id="`Editor-${index}`" :ref="`Editor-${index}`" :value=Item.Info></textarea>
       </no-ssr>
    </div>
     <div>
@@ -58,17 +57,26 @@ export default {
   },
   async mounted() { 
     await this.$nextTick()
-    let vueditor = require('vueditor')
-    this.Editor = vueditor.createEditor(`#editor-${this.index}`, {
-      uploadUrl: '',
-      id: `editor-${this.index}`,
-      classList: []
-    });//*/
-    this.Editor.setContent(this.Item.Info)
+    let thisEditor = this;
+
+    this.Editor = tinymce.init({
+      selector: `#Editor-${this.index}`,
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor textcolor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste code help wordcount'
+      ],
+      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help',
+      images_upload_url: '/api/Img/Upload',
+      images_upload_base_path: '/img',
+      init_instance_callback: function (editor) {
+        editor.on('change', function (e) { thisEditor.Item.Info = tinymce.get(`Editor-${index}`).getContent() });
+      }
+    });
   },
   methods: {
     EventClose() {
-      this.Item.Info = this.Editor.getContent()
       this.Item.isHide = this.isHide
       if (this.save) this.save(this.Item)
       if (this.close) this.close(this.index)

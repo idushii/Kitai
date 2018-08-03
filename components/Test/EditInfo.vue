@@ -5,10 +5,10 @@
       <input type="text" v-model="Item.Title">
       <select-category :id-category="Item.idCategory" @input="setCategory" />
       <no-ssr placeholder="Редактор загружается...">
-        <div id="editorSmallArea"></div>
+        <textarea :id="`EditorSmall`" :value=Item.Info></textarea>
       </no-ssr>
       <no-ssr placeholder="Редактор загружается...">
-        <div id="editorFullArea"></div>
+        <textarea :id="`EditorFull`" :value=Item.InfoFull></textarea>
       </no-ssr>
     </div>
   </card>
@@ -36,27 +36,45 @@ export default {
   },
   async mounted() { 
     await this.$nextTick()
-    let vueditor = require('vueditor')
-    this.EditorSmall = vueditor.createEditor('#editorSmallArea', {
-      uploadUrl: '',
-      id: 'editorSmall',
-      classList: []
-    });//*/
+    let thisEditor = this;
 
-    this.EditorFull = vueditor.createEditor('#editorFullArea', {
-      uploadUrl: '',
-      id: 'editorSmall',
-      classList: []
-    });//*/
+    this.EditorSmall = tinymce.init({
+      selector: `#EditorSmall`,
+      menubar: false,
+      height: this.$el.querySelector("#EditorSmall").getBoundingClientRect().height-70,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor textcolor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste code help wordcount'
+      ],
+      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help',
+      images_upload_url: '/api/Img/Upload',
+      images_upload_base_path: '/img',
+      init_instance_callback: function (editor) {
+        editor.on('change', function (e) { thisEditor.Item.Info = tinymce.get('EditorSmall').getContent() });
+      }
+    });
 
-    this.EditorSmall.setContent(this.Item.Info)
-    this.EditorFull.setContent(this.Item.InfoFull)
+    this.EditorSmall = tinymce.init({
+      selector: `#EditorFull`,
+      height: this.$el.querySelector("#EditorFull").getBoundingClientRect().height-70,
+      menubar: false,
+      plugins: [
+        'advlist autolink lists link image charmap print preview anchor textcolor',
+        'searchreplace visualblocks code fullscreen',
+        'insertdatetime media table contextmenu paste code help wordcount'
+      ],
+      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help',
+      images_upload_url: '/api/Img/Upload',
+      images_upload_base_path: '/img',
+      init_instance_callback: function (editor) {
+        editor.on('change', function (e) { thisEditor.Item.Info = tinymce.get('EditorFull').getContent() });
+      }
+    });
   },
   methods: {
     setCategory(id) { this.Item.idCategory = id },
     EventClose() {
-      this.Item.Info = this.EditorSmall.getContent()
-      this.Item.InfoFull = this.EditorFull.getContent()
       if (this.close) this.$emit('close', this.Item)
       if (this.save) this.save(this.Item)
       return this.Item
@@ -71,9 +89,8 @@ export default {
 <style lang="scss" scoped>
 .TestEditInfo .content>div {
   display: grid; 
-  grid-template-rows: auto auto 2fr 3fr;
+  grid-template-rows: auto auto 40vh 70vh;
   grid-gap: 1rem;
-  min-height: 150vh;
 
   input { width: calc(100% - 4px -.4rem); padding: .2rem; }
 }

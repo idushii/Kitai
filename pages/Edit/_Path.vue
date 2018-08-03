@@ -38,7 +38,7 @@ export default {
         'searchreplace visualblocks code fullscreen',
         'insertdatetime media table contextmenu paste code help wordcount'
       ],
-      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+      toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help',
       images_upload_url: '/api/Img/Upload',
       images_upload_base_path: '/img',
       init_instance_callback: function (editor) {
