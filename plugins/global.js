@@ -8,6 +8,7 @@ import SelectCategory from '~/components/SelectCategory.vue'
 import FabAdd from '~/components/btns/fab-add.vue'
 import TestEditInfo from '~/components/Test/EditInfo.vue'
 import EditItem from '~/components/Test/EditItem.vue'
+import TableWords from '~/components/Test/TableWords.vue'
 
 Vue.component('card', card)
 Vue.component('selectTree', selectTree)
@@ -17,6 +18,7 @@ Vue.component('SelectCategory', SelectCategory)
 Vue.component('FabAdd', FabAdd)
 Vue.component('TestEditInfo', TestEditInfo)
 Vue.component('EditItem', EditItem)
+Vue.component('TableWords', TableWords)
 
 Vue.mixin({
   computed: {

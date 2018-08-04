@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import audioFile from '~/components/audio-file.vue'
-
 export default {
   name: 'Word',
   layout: 'site',
@@ -35,9 +33,6 @@ export default {
       return this.$store.getters.WordsCategorisGyIDs(this.Word.Categoris.split(' ').map(id => id*1)).map( tag => tag.Title ).join(', ')
     }
   },
-  components: {
-    audioFile
-  }
 }
 </script>
 

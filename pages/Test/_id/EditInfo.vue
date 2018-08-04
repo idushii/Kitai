@@ -6,13 +6,9 @@
 </template>
 
 <script>
-import TestEditInfo from '~/components/Test/EditInfo.vue'
 export default {
   name: 'EditInfo',
   layout: 'document',
-  components: {
-    TestEditInfo
-  },
   methods: {
     async save(Item) {
       await this.$store.dispatch(`SAVE_TEST_INFO`, Item)

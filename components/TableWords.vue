@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import audioFile from '~/components/audio-file.vue'
-
 export default {
   name: 'TableWords',
   props: {
@@ -36,10 +34,6 @@ export default {
   },
   methods: {
   },
-  components: {
-    audioFile,
-  }
-
 }
 </script>
 

@@ -14,9 +14,6 @@
 </template>
 
 <script>
-import TestEditInfo from '~/components/Test/EditInfo.vue'
-import EditItem from '~/components/Test/EditItem.vue'
-import FabAdd from '~/components/btns/fab-add.vue'
 export default {
   name: 'Test-Edit',
   layout: 'document',
@@ -62,11 +59,6 @@ export default {
       alert('Функционал не реализован')
     }
   },
-  components: {
-    TestEditInfo,
-    EditItem,
-    FabAdd
-  }
 }
 </script>
 

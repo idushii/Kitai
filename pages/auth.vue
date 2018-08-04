@@ -16,7 +16,6 @@
 
 <script>
 import mainMenu from "~/components/menu";
-import card from "~/components/card";
 export default {
   name: 'auth',
   data() {
@@ -44,8 +43,7 @@ export default {
     },
   },
   components: {
-    mainMenu,
-    card
+    mainMenu
   },
   layout: 'site'
 }

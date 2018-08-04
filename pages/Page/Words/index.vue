@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import TableWords from '~/components/TableWords.vue'
 import { mapGetters } from "vuex";
 export default {
   name: 'PageListWords',
@@ -69,9 +68,6 @@ export default {
       WordsCategoris: []
     }
   }),
-  components: {
-    TableWords
-  },
   methods: {
     openWord(Word) { this.$router.push(`/Page/Words/${Word.Translate}`) },
     clearString(str) { return str.replace(/\r?\n/g, "") },

@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import EditItem from '~/components/Test/EditItem.vue'
 export default {
   name: "Test-id-Page-index-Edit",
   layout: 'document',
@@ -22,8 +21,5 @@ export default {
       } else alert(result.message)
     }
   },
-  components: {
-    EditItem
-  }
 }
 </script>
