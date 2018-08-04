@@ -19,7 +19,7 @@
     <card class="sound">
       <div slot="title">Озвучивание</div>
       <div slot="content" id="content-edit-sound">
-        <audio-file :scr="Word.sound" />
+        <audio-file :src="Word.Sound" />
         <div></div>
         <upload-sound v-model="Word.Sound" :name="Word.id" />
       </div>
