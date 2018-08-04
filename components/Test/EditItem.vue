@@ -4,7 +4,7 @@
     <input type="text" v-model="Item.Quest" placeholder="Вопрос">
     <div class="Info" :style="{'min-height': heightQuest}">
       <no-ssr placeholder="Редактор загружается...">
-        <textarea :id="`Editor-${index}`" :ref="`Editor-${index}`" :value=Item.Info></textarea>
+        <textarea :id="EditorId" :ref="EditorId" :value=Item.Info></textarea>
       </no-ssr>
    </div>
     <div>
@@ -44,6 +44,9 @@ export default {
   computed: {
     Variants() {
       return [ this.Item.Variant_1, this.Item.Variant_2, this.Item.Variant_3, this.Item.Variant_4 ]
+    },
+    EditorId() {
+      return `Editor-${this.index}`
     }
   },
   async created() {
@@ -60,7 +63,7 @@ export default {
     let thisEditor = this;
 
     this.Editor = tinymce.init({
-      selector: `#Editor-${this.index}`,
+      selector: `#${this.EditorId}`,
       menubar: false,
       plugins: [
         'advlist autolink lists link image charmap print preview anchor textcolor',
@@ -71,7 +74,7 @@ export default {
       images_upload_url: '/api/Img/Upload',
       images_upload_base_path: '/img',
       init_instance_callback: function (editor) {
-        editor.on('change', function (e) { thisEditor.Item.Info = tinymce.get(`Editor-${index}`).getContent() });
+        editor.on('change', function (e) { thisEditor.Item.Info = tinymce.get(thisEditor.EditorId).getContent(); });
       }
     });
   },
