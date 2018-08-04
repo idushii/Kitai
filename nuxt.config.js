@@ -26,6 +26,7 @@ export default {
     extendRoutes (routes) {
       for(let index in routes) {
         if (routes[index].path == '/Page/Testing' ) routes[index].redirect = '/Test'
+        if (routes[index].path == '/' ) routes[index].redirect = '/Page/Main'
       }
       return routes
     }
