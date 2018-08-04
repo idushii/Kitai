@@ -29,7 +29,7 @@ export default {
       .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
   
     connection.query(`UPDATE testings_item SET ? WHERE id='${req.body.id}'`, collumns, function(err, rows, fields) {
-      if (err) return res.status(401).json({ message: 'Ошибка запроса', info: err }); 
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
       return res.json({result: true});
     });//*/    
   },
@@ -39,7 +39,7 @@ export default {
       .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
   
     connection.query(`UPDATE testings SET ? WHERE id='${req.body.id}'`, collumns, function(err, rows, fields) {
-      if (err) return res.status(401).json({ message: 'Ошибка запроса', info: err }); 
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
       return res.json({result: true});
     });//*/
   },
@@ -113,6 +113,13 @@ export default {
   },
   New: (req, res) => {
     console.log({query: 'Test.New'})
+    let collumns = ['idCategory', 'Title', 'Info', 'InfoFull']
+      .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
+    
+    connection.query(`INSERT INTO testings SET ?`, collumns, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
+      return res.json({result: true});
+    })
 
   }
 }
