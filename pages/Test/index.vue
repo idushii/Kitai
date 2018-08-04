@@ -7,6 +7,7 @@
       <div slot="content" v-html="Test.Info" />
       <div slot="append">Добавлен №№ №№ №№№№</div>
     </card>
+    <fab-add v-if="isAuth" @click="addNewTest" />
   </div>
 </template>
 
@@ -20,6 +21,11 @@ export default {
       TestList: await app.$axios.$get(`/api/TestList`), 
     }
   },
+  methods: {
+    addNewTest() {
+      this.$router.push('Test/New')
+    }
+  }
 }
 </script>
 
