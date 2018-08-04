@@ -1,7 +1,7 @@
 <template>
   <div class="TestEdit">
     <card title clings back="/Page/Testing" :save=save>Изменить тест</card>
-    <test-edit-info ref=TestEditInfo :id=id />
+    <test-edit-info title="Пояснения к тесту" ref=TestEditInfo :id=id />
     <edit-item 
       v-if="Items && Items.length" :is-hide="item.isHide"
       v-for="(item, index) in  Items" :key="`item-${index}`"
@@ -9,6 +9,7 @@
       ref=EditItem :item=item :close=hideQuest
     />
     <fab-add @click="addNewQuest" />
+    <div class="btn-remove" @click="removeTest">Удалить тест</div>
   </div>
 </template>
 
@@ -56,6 +57,9 @@ export default {
         Variant_4: "",
         isHide: false,
       })
+    },
+    removeTest() {
+      alert('Функционал не реализован')
     }
   },
   components: {
@@ -70,5 +74,11 @@ export default {
   .TestEdit {
     display: grid; grid-gap: 1rem;
     margin-bottom: 10vh !important;
+  }
+
+  .btn-remove {
+    text-align: center; border: 1px solid red;
+    padding: .5rem; background-color: var(--card-background);
+    cursor: pointer;
   }
 </style>
