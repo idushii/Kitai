@@ -8,7 +8,7 @@ import SelectCategory from '~/components/SelectCategory.vue'
 import FabAdd from '~/components/btns/fab-add.vue'
 import TestEditInfo from '~/components/Test/EditInfo.vue'
 import EditItem from '~/components/Test/EditItem.vue'
-import TableWords from '~/components/Test/TableWords.vue'
+import TableWords from '~/components/TableWords.vue'
 
 Vue.component('card', card)
 Vue.component('selectTree', selectTree)
