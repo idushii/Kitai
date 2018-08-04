@@ -62,6 +62,7 @@ export const getters = {
       else return {}
     } else return null
   },
+  TestLastID: state => state.TestList.reduce( (max, test) => test.id > max ? test.id : max , null ),
   Words: (state, getters) => state.Words.map( word => (
     {...word, tags: getters.WordsCategoris.filter( tag => word.Categoris.split(' ').map(id => id*1).indexOf(tag.id*1) != -1 )}
   ) ),
@@ -152,12 +153,17 @@ export const actions = {
     return data.result ? true : data
   },
   async SAVE_TEST({commit}, Test) {
-    let {data, status} = await this.$axios.post(`api/Save/Test`, Test) // Надо реализовать серверную часть
+    let {data, status} = await this.$axios.post(`api/Save/Test`, Test)
     if (status == 200) {
       commit('SET_TEST', Test)
       return true
     } else 
       return data
+  },
+  async NEW_TEST({commit, dispatch}, Test) {
+    let {data, status} = await this.$axios.post(`api/New/Test/`, Test)
+    if (status == 200) { await dispatch('GET_TEST_LIST'); return true
+    } else return data
   }
 
   
