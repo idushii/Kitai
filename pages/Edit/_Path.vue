@@ -60,8 +60,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../node_modules/vue-wysiwyg/dist/vueWysiwyg.css";
-
 .content {
   &>input { padding: .5rem; background: white; border: 1px solid grey; width: calc( 100% - 1rem); margin-bottom: 1rem; }
 
