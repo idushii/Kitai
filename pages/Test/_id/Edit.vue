@@ -32,7 +32,7 @@ export default {
   methods: {
     async save() {
       let Test = { ...this.$refs.TestEditInfo.EventClose(), Items: [] }
-      for(let item of this.$refs.EditItem) { Test.Items.push(item.EventClose()) }
+      for(let item of this.$refs.EditItem || []) { Test.Items.push(item.EventClose()) }
       let result = await this.$store.dispatch('SAVE_TEST', Test)
       if (result === true) this.$router.push(`/Page/Testing`)
       else alert(JSON.stringify(result))
