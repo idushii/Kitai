@@ -15,7 +15,7 @@
     "sass-loader": "^7.0.3"
   },
   "scripts": {
-    "dev": "nodemon --watch api --exec \" nuxt -p 8080 \" ",
+    "dev": "nodemon --watch api --exec \" nuxt -p 80 \" ",
     "build": "nuxt build",
     "start": "nuxt start"
   },

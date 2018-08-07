@@ -1906,10 +1906,6 @@ de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
 
-debounce@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.1.0.tgz#6a1a4ee2a9dc4b7c24bb012558dbcdb05b37f408"
-
 debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -2062,10 +2058,6 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:
     is-obj "^1.0.0"
-
-dropzone@^5.4.0:
-  version "5.5.1"
-  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.5.1.tgz#06e2f513e61d6aa363d4b556f18574f47cf7ba26"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -3645,10 +3637,6 @@ map-visit@^1.0.0:
   resolved "https://registry.yarnpkg.com/map-visit/-/map-visit-1.0.0.tgz#ecdca8f13144e660f1b5bd41f12f3479d98dfb8f"
   dependencies:
     object-visit "^1.0.0"
-
-marked@^0.3.6:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -6082,13 +6070,9 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tinymce@^4.5.7, tinymce@^4.7.7:
+tinymce@^4.5.7:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.8.0.tgz#3c4c88701d0526374efb45bafbb820c7715e2356"
-
-tinymce@^4.8.1:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.8.1.tgz#09f4b654f4d8eef0501fc1c3036b5e9cd33d9863"
 
 tmp@^0.0.33:
   version "0.0.33"
@@ -6177,10 +6161,6 @@ tunnel-agent@^0.6.0:
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
-
-twemoji@^2.4.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/twemoji/-/twemoji-2.5.1.tgz#296647c6163c7f047458871c2aebe25ea8ffe834"
 
 type-is@~1.6.15, type-is@~1.6.16:
   version "1.6.16"
@@ -6420,10 +6400,6 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
-vue-html5-editor@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/vue-html5-editor/-/vue-html5-editor-1.1.1.tgz#5910210a830d8c8d3479a1f1fec8473192aa03b3"
-
 vue-loader@^15.2.2:
   version "15.2.5"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.2.5.tgz#76472f4ed109c801dc94fd6821a724570850622a"
@@ -6466,7 +6442,7 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.5.13, vue-template-compiler@^2.5.16:
+vue-template-compiler@^2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.16.tgz#93b48570e56c720cdf3f051cc15287c26fbd04cb"
   dependencies:
@@ -6477,48 +6453,11 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
-vue-tinymce-editor@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/vue-tinymce-editor/-/vue-tinymce-editor-1.6.2.tgz#3edfc736782fdb6515d50ce701720e9ec77df9fd"
-  dependencies:
-    tinymce "^4.7.7"
-    vue "^2.5.13"
-    vue-template-compiler "^2.5.13"
-
-vue-tinymce@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/vue-tinymce/-/vue-tinymce-1.0.5.tgz#02701391c56017ed382d5025caf860810e1e88ae"
-  dependencies:
-    vue "^2.1.10"
-
-vue-wysiwyg@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/vue-wysiwyg/-/vue-wysiwyg-1.7.2.tgz#8f5ffe46e95e984c1f36874cc42ede5213e3b2d8"
-  dependencies:
-    debounce "^1.1.0"
-    vue "^2.5.13"
-    vue2-dropzone "^3.0.4"
-
-vue2-dropzone@^3.0.4:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/vue2-dropzone/-/vue2-dropzone-3.2.2.tgz#fcf1063a25f0206e92579b41d5caff97b9ca5661"
-  dependencies:
-    dropzone "^5.4.0"
-
-vue@>=2.0.5, vue@^2.1.10, vue@^2.2.1, vue@^2.5.13, vue@^2.5.16:
+vue@^2.2.1, vue@^2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
-vueditor@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/vueditor/-/vueditor-0.3.1.tgz#e07b4a9b57884bc05fe17a58dc1b9304ddb70388"
-  dependencies:
-    marked "^0.3.6"
-    twemoji "^2.4.1"
-    vue ">=2.0.5"
-    vuex ">=2.0.0"
-
-vuex@>=2.0.0, vuex@^3.0.1:
+vuex@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
 
