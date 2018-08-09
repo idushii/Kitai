@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "nodemon --watch api --exec \" nuxt -p 80 \" ",
     "build": "nuxt build",
-    "start": "nuxt start"
+    "start": "nuxt start",
+    "install": "node install.js"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
