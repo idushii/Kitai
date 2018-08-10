@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 09 2018 г., 05:13
+-- Время создания: Авг 10 2018 г., 08:29
 -- Версия сервера: 10.1.34-MariaDB
 -- Версия PHP: 7.1.19
 
@@ -34,6 +34,8 @@ USE `j693917_sayana`;
 DROP TABLE IF EXISTS `categoris`;
 CREATE TABLE `categoris` (
   `id` int(11) NOT NULL,
+  `idPage` int(11) DEFAULT NULL,
+  `Path` varchar(20) NOT NULL,
   `Title` text NOT NULL,
   `Info` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,11 +44,13 @@ CREATE TABLE `categoris` (
 -- Дамп данных таблицы `categoris`
 --
 
-INSERT INTO `categoris` (`id`, `Title`, `Info`) VALUES
-(1, 'Главная', 'Тексты на главной странице'),
-(2, 'О нас', 'Тексты на странице о нас'),
-(3, 'Тесты', 'Страницы с прохождением тестов'),
-(4, 'Словарь', 'Словарь со словами 1 - 6 уровней китайского языка');
+INSERT INTO `categoris` (`id`, `idPage`, `Path`, `Title`, `Info`) VALUES
+(1, 1, 'Main', 'Главная', 'Тексты на главной странице'),
+(2, 5, 'Category-1', 'Категория 1', '<p>Тексты на странице грамматики</p>'),
+(3, 4, 'Test', 'Тесты', 'Страницы с прохождением тестов'),
+(4, 3, 'Words', 'Словарь', 'Словарь со словами 1 - 6 уровней китайского языка'),
+(5, 5, 'Category-2', 'Категория 2', 'Тексты на странице грамматики'),
+(6, 5, 'Category-3', 'Категория 3', 'Тексты на странице грамматики');
 
 -- --------------------------------------------------------
 
@@ -85,9 +89,21 @@ INSERT INTO `pages` (`id`, `Path`, `Title`, `Text`, `OrderItem`, `ShowItem`) VAL
 DROP TABLE IF EXISTS `records`;
 CREATE TABLE `records` (
   `id` int(11) NOT NULL,
+  `Path` varchar(40) NOT NULL,
+  `Title` text NOT NULL,
+  `Info` text NOT NULL,
   `Text` text NOT NULL,
   `idCategory` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `records`
+--
+
+INSERT INTO `records` (`id`, `Path`, `Title`, `Info`, `Text`, `idCategory`) VALUES
+(1, 'Record-1', 'Заголовок', 'Краткий текст', 'Текст записи', 2),
+(2, 'Record-2', 'Заголовок 2', '<p>Краткий текст 21</p>', '<p>Текст записи 2</p>\n<p>sdfsdf</p>\n<p>11122</p>', 2),
+(3, 'Record-3', 'Заголовок', 'Краткий текст', 'Текст записи', 5);
 
 -- --------------------------------------------------------
 
@@ -230,13 +246,21 @@ INSERT INTO `words_categoris` (`id`, `idParent`, `Title`, `Info`) VALUES
 -- Индексы таблицы `categoris`
 --
 ALTER TABLE `categoris`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idPage` (`idPage`);
 
 --
 -- Индексы таблицы `pages`
 --
 ALTER TABLE `pages`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `records`
+--
+ALTER TABLE `records`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idCategory` (`idCategory`);
 
 --
 -- Индексы таблицы `testings`
@@ -277,13 +301,19 @@ ALTER TABLE `words_categoris`
 -- AUTO_INCREMENT для таблицы `categoris`
 --
 ALTER TABLE `categoris`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `pages`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `records`
+--
+ALTER TABLE `records`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `testings`
@@ -318,6 +348,18 @@ ALTER TABLE `words_categoris`
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
+
+--
+-- Ограничения внешнего ключа таблицы `categoris`
+--
+ALTER TABLE `categoris`
+  ADD CONSTRAINT `categoris_ibfk_1` FOREIGN KEY (`idPage`) REFERENCES `pages` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `records`
+--
+ALTER TABLE `records`
+  ADD CONSTRAINT `records_ibfk_1` FOREIGN KEY (`idCategory`) REFERENCES `categoris` (`id`);
 
 --
 -- Ограничения внешнего ключа таблицы `testings_item`
