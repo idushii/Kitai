@@ -22,7 +22,7 @@ body, html { margin: 0px; padding: 0px; background-color: rgba(255, 255, 100, 0.
 
   #content { 
     margin: 0px auto; margin-top: -25vh;
-    min-width: 900px; width: 80vw; 
+    min-width: 700px; width: 80vw; 
     /*min-height: 80vh;*/
     display: grid; grid-gap: var(--gap);
   }
