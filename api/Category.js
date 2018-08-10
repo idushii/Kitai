@@ -32,13 +32,13 @@ export default {
       })
   },
   SaveCategory: (req, res) => {
-    connection.query(`UPDATE Categoris SET Title = '${req.body.Title}', Info = '${req.body.Info.replace(/\'/g, "\\'")}' WHERE id='${req.params.id}'`, function(err, rows, fields) {
+    connection.query(`UPDATE categoris SET Title = '${req.body.Title}', Info = '${req.body.Info.replace(/\'/g, "\\'")}' WHERE id='${req.params.id}'`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
       return res.json({result: true});
     });
   },
   SaveRecord: (req, res) => {
-    connection.query(`UPDATE Records SET Title = '${req.body.Title}', Text = '${req.body.Text.replace(/\'/g, "\\'")}', Info = '${req.body.Info.replace(/\'/g, "\\'")}' WHERE id='${req.params.id}'`, function(err, rows, fields) {
+    connection.query(`UPDATE records SET Title = '${req.body.Title}', Text = '${req.body.Text.replace(/\'/g, "\\'")}', Info = '${req.body.Info.replace(/\'/g, "\\'")}' WHERE id='${req.params.id}'`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
       return res.json({result: true});
     });
