@@ -3,10 +3,42 @@ import connection from './connection'
 export default {
   List: (req, res) => {
     console.log({query: 'Page.List'})
-    connection.query(`SELECT * FROM Pages`, function(err, rows, fields) {
-      if (err) return res.status(401).json({ message: 'Ошибка запроса', info: err }); 
-      return res.json(rows)
-    });
+    let PromisePages = new Promise( function(resolve, reject) {
+      return connection.query(`SELECT * FROM Pages`, function(err, rows, fields) {
+        if (err) return reject({message: 'Ошибка удаления БД', info: err})
+        return resolve(rows)
+      })
+    }).catch(console.warn)
+    
+    let PromiseCategoris = new Promise( function(resolve, reject) {
+      return connection.query(`SELECT * FROM categoris`, function(err, rows, fields) {
+        if (err) return reject({message: 'Ошибка удаления БД', info: err})
+        return resolve(rows)
+      });
+    }).catch(console.warn)
+
+    let PromiseRecords = new Promise( function(resolve, reject) {
+      return connection.query(`SELECT * FROM records`, function(err, rows, fields) {
+        if (err) return reject({message: 'Ошибка удаления БД', info: err})
+        return resolve(rows)
+      });
+    }).catch(console.warn)
+
+    return Promise.all([PromisePages, PromiseCategoris, PromiseRecords])
+      .then(result => {
+        let Pages = []
+        for(let Page of result[0]) {
+          let Categoris = []
+          for (let Cat of result[1]) {
+            Cat.Records = result[2].filter( Record => Record.idCategory == Cat.id )
+            if (Page.id == Cat.idPage) Categoris.push(Cat)
+          }
+          if (Categoris.length) Page.Categoris = Categoris;
+          Pages.push(Page)
+        }
+        res.json(Pages)
+      })
+    
   },
   ByPath: (req, res) => {
     console.log({query: 'Page.ByPath'})
