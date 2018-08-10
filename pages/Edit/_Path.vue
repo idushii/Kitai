@@ -7,7 +7,6 @@
         <textarea id="Editor" ref="Editor" :value=Page.Text></textarea>
       </no-ssr>
     </card>
-
   </div>
 </template>
 
