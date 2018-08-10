@@ -11,6 +11,20 @@ export const mutations = {
   SET_USER(state, user) { state.authUser = user },
   SET_MENU(state, pages) { state.pages = pages; },
   SET_CATEGORIS(state, categoris) { state.categoris = categoris; },
+  SET_CATEGORY(state, Category) { 
+    for (let indexCat in state.categoris) {
+      if (state.categoris[indexCat].id == Category.id) return state.categoris[indexCat] = Category
+    }
+  },
+  SET_RECORD(state, Record) {
+    for (let indexCat in state.categoris) {
+      for (let indexRecord in state.categoris[indexCat].Records) {
+        if (state.categoris[indexCat].Records[indexRecord].id == Record.id) {
+          return state.categoris[indexCat].Records[indexRecord] = Record
+        }
+      }
+    }
+  },
   SET_TEST_LIST(state, TestList) { state.TestList = TestList; },
   SET_TEST_ITEMS(state, {id, Items}) { 
     let index = state.TestList.reduce( (result, test, index) => test.id == id ? index : result, null );
@@ -52,6 +66,8 @@ export const getters = {
   USER: state => state.authUser,
   menu: state => state.pages.filter( page => page.ShowItem ),
   categoris: state => state.categoris,
+  Category: state => Path => state.categoris.filter( Cat => Cat.Path == Path ).pop(),
+  CategoryById: state => id => state.categoris.filter( Cat => Cat.id == id ).pop(),
   isLoadTestList: state => state.TestList.length,
   test: state => id => state.TestList.filter( test => test.id == id ).pop(),
   test_item: (state, getters) => (id, index) => {
@@ -68,7 +84,12 @@ export const getters = {
   ) ),
   WordsCategoris: state => state.WordsCategoris,
   WordsCategorisGyIDs: (state, getters) => ids => getters.WordsCategoris.filter( tag => ids.indexOf(tag.id*1) != -1 ),
-  WordByTranslate: state => Translate => state.Words.filter( word => word.Translate == Translate ).pop()
+  WordByTranslate: state => Translate => state.Words.filter( word => word.Translate == Translate ).pop(),
+  Record: state => id => {
+    for(let Cat of state.categoris) for(let Record of Cat.Records)
+      if (Record.id == id) return {...Record, idCategory: Cat.id, idPage: Cat.idPage}
+  },
+  PageById: state => id => state.pages.filter( page => page.id == id ).pop()
 }
 
 export const actions = {
@@ -78,7 +99,7 @@ export const actions = {
     if (req.session && req.session.authUser) { commit('SET_USER', req.session.authUser) }
 
     let data = await app.$axios.$get('api/pages'); commit('SET_MENU', data);
-    data = await this.$axios.$get('/api/categoris'); commit('SET_CATEGORIS', data)
+    data = await this.$axios.$get('/api/categoris/ListWithRecords'); commit('SET_CATEGORIS', data)
     data = await this.$axios.$get('/api/TestList'); commit('SET_TEST_LIST', data)
     data = await this.$axios.$get('/api/Words'); commit('SET_WORDS', data)
     data = await this.$axios.$get('/api/WordsCategoris'); commit('SET_WORDS_CATEGORIS', data)
@@ -164,9 +185,24 @@ export const actions = {
     let {data, status} = await this.$axios.post(`api/New/Test/`, Test)
     if (status == 200) { await dispatch('GET_TEST_LIST'); return true
     } else return data
-  }
+  },
+  async SET_RECORD({commit}, Record) {
+    let {data, status} = await this.$axios.post(`/api/save/record/${Record.id}`, Record)
+    if (status == 200) {
+      commit('SET_RECORD', Record)
+      return true
+    } else 
+      return data
+  },
+  async SET_CATEGORY({commit}, Category) {
+    let {data, status} = await this.$axios.post(`/api/save/Category/${Category.id}`, Category)
+    if (status == 200) {
+      commit('SET_CATEGORY', Category)
+      return true
+    } else 
+      return data
+  },
 
   
-
   
 }
