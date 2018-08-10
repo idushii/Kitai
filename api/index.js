@@ -22,7 +22,10 @@ router.get('/WordsCategoris', Word.Categoris)
 router.post('/Words/Upload/:Name', upload.Word)
 router.post('/Words/:id', Word.Save)
 
+router.get('/categoris/ListWithRecords', Category.ListWithRecords)
 router.get('/categoris', Category.List)
+router.post('/save/Category/:id', Category.SaveCategory)
+router.post('/save/Record/:id', Category.SaveRecord)
 
 router.get('/TestList', Test.List)
 router.get('/Test/:id', Test.ById)
