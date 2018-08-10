@@ -3,7 +3,7 @@ import mysql from 'mysql'
 let mysqlCofig = {
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : 'Pass123_',
   database: 'j693917_sayana'
 }
 
