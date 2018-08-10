@@ -1,7 +1,6 @@
 .nuxt
 node_modules
 static/words
-static/js/tinymce
 static/img
 
 sayana-nuxt.code-workspace
