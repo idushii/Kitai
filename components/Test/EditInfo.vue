@@ -58,7 +58,7 @@ export default {
       }
     });
 
-    this.EditorSmall = tinymce.init({
+    this.EditorFull = tinymce.init({
       selector: `#EditorFull`,
       height: this.$el.querySelector("#EditorFull").getBoundingClientRect().height-70,
       menubar: false,
