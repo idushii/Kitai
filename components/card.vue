@@ -134,3 +134,10 @@ export default {
   margin-bottom: var(--gap);
 }
 </style>
+
+<style lang=scss>
+.card .content>div {
+  &>p:first-child { margin-top: 0px; }
+  &>p:last-child { margin-bottom: 0px; }
+}
+</style>
