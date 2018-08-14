@@ -25,6 +25,15 @@ export const mutations = {
       }
     }
   },
+  NEW_RECORD(state, Record) {
+    let index = state.categoris.reduce( (result, cat, index) => cat.id == Record.idCategory ? index : result, null );
+    return state.categoris[index].Records.push(Record);
+  },
+  REMOVE_RECORD(state, Record) {
+    let index = state.categoris.reduce( (result, cat, index) => cat.id == Record.idCategory ? index : result, null );
+    let indexRecord = state.categoris[index].Records.reduce( (result, record, index) => record.id == Record.id ? index : result, null );
+    return state.categoris[index].Records.splice(indexRecord, 1);
+  },
   SET_TEST_LIST(state, TestList) { state.TestList = TestList; },
   SET_TEST_ITEMS(state, {id, Items}) { 
     let index = state.TestList.reduce( (result, test, index) => test.id == id ? index : result, null );
@@ -190,6 +199,24 @@ export const actions = {
     let {data, status} = await this.$axios.post(`/api/save/record/${Record.id}`, Record)
     if (status == 200) {
       commit('SET_RECORD', Record)
+      return true
+    } else 
+      return data
+  },
+  async NEW_RECORD({commit}, Record) {
+    let {data, status} = await this.$axios.post(`/api/save/record/`, Record)
+    if (status == 200) {
+      console.log({...data})
+      commit('NEW_RECORD', {...Record, id: data.id})
+      return true
+    } else 
+      return data
+  },
+  async REMOVE_RECORD({commit}, Record) {
+    let {data, status} = await this.$axios.post(`/api/remove/record/${Record.id}`)
+    if (status == 200) {
+      console.log({...data})
+      commit('REMOVE_RECORD', Record)
       return true
     } else 
       return data
