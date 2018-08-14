@@ -1,12 +1,22 @@
 <template>
-  <div id="fab-add" @click='$emit("click")'>
+  <div id="fab-add" @click='open'>
     +
   </div>
 </template>
 
 <script>
 export default {
-  name: 'fab-add'
+  name: 'fab-add',
+  props: {
+    to: { type: [String, Object, Boolean], default: false }
+  },
+  methods: {
+    open() {
+      if (this.to) {
+        this.$router.push(this.to)
+      } else this.$emit("click")
+    }
+  }
 }
 </script>
 
