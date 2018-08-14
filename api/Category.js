@@ -43,4 +43,28 @@ export default {
       return res.json({result: true});
     });
   },
+  NewRecord: (req, res) => {
+    console.log({query: 'Category.NewRecord'})
+    let collumns = ['idCategory', 'Title', 'Info', 'Text']
+      .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
+    
+    connection.query(`INSERT INTO records SET ?`, collumns, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
+      //return res.json({result: true});
+      return connection.query(`SELECT LAST_INSERT_ID()`, function(err, rows, fields) {
+        if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
+        return res.json({result: true, id: rows[0]['LAST_INSERT_ID()']});
+      });
+    })
+  },
+  RemoveRecord(req, res) {
+    console.log({query: 'Category.RemoveRecord'})
+    let collumns = {id: req.params.id}
+          
+    connection.query(`DELETE FROM records WHERE ?`, collumns, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err }); 
+      return res.json({result: true});
+    })
+
+  }
 }
