@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Авг 10 2018 г., 08:29
+-- Время создания: Авг 14 2018 г., 09:40
 -- Версия сервера: 10.1.34-MariaDB
 -- Версия PHP: 7.1.19
 
@@ -162,7 +162,8 @@ INSERT INTO `testings_item` (`id`, `idTest`, `OrderItem`, `Quest`, `Info`, `Vari
 (6, 1, 0, 'Вопрос', 'Cras mauris lorem, tempus at tristique ac, porta non diam. Vivamus id ipsum non velit mollis fermentum molestie ut ante. Curabitur eu tellus rutrum est molestie vulputate sit amet a elit. Vestibulum sodales, nunc id consequat eleifend, felis eros luctus quam, vitae facilisis elit magna quis mauris. Nullam molestie augue sed neque finibus dapibus ac vel enim. Mauris sed auctor ante, ut sodales purus. In vulputate, justo non ornare feugiat, sem nisl rutrum mi, eget cursus felis diam a enim. Integer aliquam venenatis felis ac sollicitudin. Aliquam mollis nisi et risus lacinia, et bibendum velit malesuada.', 'Вариант', 'Вариант', 'Вариант', '', 2),
 (7, 1, 0, 'Вопрос', 'Cras mauris lorem, tempus at tristique ac, porta non diam. Vivamus id ipsum non velit mollis fermentum molestie ut ante. Curabitur eu tellus rutrum est molestie vulputate sit amet a elit. Vestibulum sodales, nunc id consequat eleifend, felis eros luctus quam, vitae facilisis elit magna quis mauris. Nullam molestie augue sed neque finibus dapibus ac vel enim. Mauris sed auctor ante, ut sodales purus. In vulputate, justo non ornare feugiat, sem nisl rutrum mi, eget cursus felis diam a enim. Integer aliquam venenatis felis ac sollicitudin. Aliquam mollis nisi et risus lacinia, et bibendum velit malesuada.', 'Вариант', 'Вариант', 'Вариант', 'Вариант', 2),
 (8, 1, 0, 'Вопрос', 'Cras mauris lorem, tempus at tristique ac, porta non diam. Vivamus id ipsum non velit mollis fermentum molestie ut ante. Curabitur eu tellus rutrum est molestie vulputate sit amet a elit. Vestibulum sodales, nunc id consequat eleifend, felis eros luctus quam, vitae facilisis elit magna quis mauris. Nullam molestie augue sed neque finibus dapibus ac vel enim. Mauris sed auctor ante, ut sodales purus. In vulputate, justo non ornare feugiat, sem nisl rutrum mi, eget cursus felis diam a enim. Integer aliquam venenatis felis ac sollicitudin. Aliquam mollis nisi et risus lacinia, et bibendum velit malesuada.', 'Вариант', 'Вариант', '', '', 0),
-(9, 3, 0, 'Заголовок вопроса', '<p>Описание вопроса</p>', 'Вариант ответа неправильный', 'Вариант ответа правильный', 'Вариант ответа неправильный', '', 1);
+(9, 3, 0, 'Заголовок вопроса', '<p>Описание вопроса</p>', 'Вариант ответа неправильный', 'Вариант ответа правильный', 'Вариант ответа неправильный', '', 1),
+(10, 2, 0, 'Первый вопрос теста', '<p>1111</p>', '22', '33', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -313,7 +314,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `records`
 --
 ALTER TABLE `records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `testings`
@@ -325,7 +326,7 @@ ALTER TABLE `testings`
 -- AUTO_INCREMENT для таблицы `testings_item`
 --
 ALTER TABLE `testings_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
