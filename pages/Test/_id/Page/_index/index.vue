@@ -26,7 +26,7 @@ export default {
     isNext() { return (this.test.Items.length-1 > this.index ) ? true : false },
     index() { return this.$route.params.index },
     test() { return this.$store.getters.test(this.id) || { Items: [] } },
-    item() { return this.$store.getters.test_item(this.id, this.index) },
+    item() { return this.$store.getters.test_item(this.id, this.index) || {} },
   },
   async fetch ({ store, params }) {
     if (!this.test) {
