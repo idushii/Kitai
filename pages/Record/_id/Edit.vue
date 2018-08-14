@@ -9,6 +9,7 @@
       <no-ssr placeholder="Редактор загружается...">
         <textarea :id="`EditorFull`" :value=Record.Text></textarea>
       </no-ssr>
+      <button @click="Remove">Удалить</button>
     </card>
   </div>
 </template>
@@ -18,7 +19,9 @@ export default {
   name: 'Record-Edit',
   layout: 'document',
   computed: {
-    id() { return this.$route.params.id }
+    id() { return this.$route.params.id },
+    Category() { return this.$store.getters.CategoryById(this.Record.idCategory) },
+    Page() { return this.$store.getters.PageById(this.Category.idPage) }
   },
   asyncData({app, params, store, route}) {
     return { Record: store.getters['Record'](route.params.id), EditorSmall: {}, EditorFull: {} }
@@ -68,6 +71,11 @@ export default {
       if (answer == true) this.$router.push(`/Record/${this.Record.id}/${this.Record.Path}`)
       else alert(answer.message + ' ' +JSON.stringify(answer.info))
     },
+    async Remove() {
+      let answer = await this.$store.dispatch('REMOVE_RECORD', this.Record)
+      if (answer == true) this.$router.push(`/Page/${this.Page.Path}/${this.Category.Path}`)
+      else alert(answer.message + ' ' +JSON.stringify(answer.info))
+    }
   }
 }
 </script>
