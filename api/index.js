@@ -8,6 +8,8 @@ import Category from './Category'
 import upload from './upload'
 
 router.post('/login', Auth.Login)
+router.post('/users/reg', Auth.Reg)
+router.post('/users/profile', Auth.UpdateProfile)
 router.post('/logout', Auth.LogOut)
 router.post('/mysql', Auth.TestMySQL)
 
@@ -43,3 +45,4 @@ export default {
   path: '/api',
   handler: router
 }
+

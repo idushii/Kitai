@@ -1,5 +1,5 @@
 export const state = () => ({
-  authUser: null,
+  authUser: { Login: '' },
   pages: [],
   categoris: [],
   TestList: [],
@@ -131,6 +131,22 @@ export const actions = {
   async logout({ commit }) {
     await this.$axios.$post('/api/logout')
     commit('SET_USER', null)
+  },
+  async Reg({commit}, {Login, Pass}) {
+    commit('SET_USER', {Login, Pass})
+    return true;
+  },
+  async Reg2({commit, getters, dispatch}, {FIO, Email}) {
+    try {
+      let data = await this.$axios.$post('/api/users/reg', {...getters.USER, FIO, Email})
+      commit('SET_USER', {...getters.USER, id: data.id})
+    } catch(error) { throw new Error(error.response.data.message) }
+  },
+  async SET_PROFILE({commit, getter}, User) {
+    try {
+      let data = await this.$axios.$post('/api/users/profile', User)
+      commit('SET_USER', User)
+    } catch(error) { throw new Error(error.response.data.message) }
   },
   async SET_MENU({ commit }) {
     console.log({action: 'SET_MENU'})
