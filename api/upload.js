@@ -14,7 +14,6 @@ export default {
     form.parse(req);
   },
   Img(req, res) {
-    res.json(req);
     let name = ""
     var form = new formidable.IncomingForm();
     form.uploadDir = path.join(__dirname, '../static/img');
