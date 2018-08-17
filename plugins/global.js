@@ -23,7 +23,7 @@ Vue.component('TableWords', TableWords)
 Vue.mixin({
   computed: {
     isAuth() { 
-      return true //!! this.$store.getters.USER 
+      return this.$store.getters.USER.id ? true : false
     }
   }
 })
