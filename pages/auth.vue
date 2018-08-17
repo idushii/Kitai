@@ -5,9 +5,9 @@
     <div slot=content>
       <form @submit.prevent="login">
         <p v-if="formError" class="error">{{ formError }}</p>
-        <label >Username: <input v-model="formUsername" type="text" name="username" > </label> 
-        <label >Password: <input v-model="formPassword" type="password" name="password" > </label> 
-        <button type="submit">Login</button>
+        <label >Пользователь: <input v-model="formUsername" type="text" name="username" > </label> 
+        <label >Пароль: <input v-model="formPassword" type="password" name="password" > </label> 
+        <button type="submit">Войти</button>
       </form>
     </div>
   </card>
@@ -22,7 +22,8 @@ export default {
     return {
       formError: null,
       formUsername: 'User',
-      formPassword: '123'
+      formPassword: '123',
+      formPassword2: '123',
     }
   },
   methods: {
@@ -59,7 +60,7 @@ export default {
 
 .card .content label {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   padding-bottom: .5rem;
 }
 </style>
