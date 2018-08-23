@@ -17,7 +17,7 @@
 <script>
 export default {
   name: 'profile',
-  layout: 'site',
+
   data: () => ({
     User: {
       id: '',

@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'Test-Page',
-  layout: 'site',
+
   computed: {
     id() { return this.$route.params.id },
     isNext() { return (this.test.Items.length-1 > this.index ) ? true : false },

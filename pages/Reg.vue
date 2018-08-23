@@ -51,7 +51,7 @@ export default {
   components: {
     mainMenu
   },
-  layout: 'site'
+  
 }
 </script>
 

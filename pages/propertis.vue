@@ -8,9 +8,9 @@
     <card>
       <div slot="title"> Версия сайта </div>
       <div slot="content">
-        <label><input name="site-version" type="radio" /> Полная версия </label>
-        <label><input name="site-version" type="radio" /> Планшетная версия </label>
-        <label><input name="site-version" type="radio" /> Мобильная версия </label>
+        <label><input name="site-version" type="radio" value="desktop" v-model="layout" /> Полная версия </label>
+        <label><input name="site-version" type="radio" value="table" v-model="layout" /> Планшетная версия </label>
+        <label><input name="site-version" type="radio" value="mobile" v-model="layout" /> Мобильная версия </label>
         <i>Планирую сделать две или три отдельных версии сайта, а при открытии определять, на чем его открыли. Сложностей при разработке не будет, т.к. я просто буду перекомпоновывать уже готовые блоки, а не писать их заново.<br><br> Здесь же можно будет указать, какую версию лучше открыть. Ну мало ли, на планшете старый браузер и он плохо показывает версию для планшета ? Версий для телефона тоже можно сделать как современную и "точно точно работающую везде". Но это в последнюю очередь, понятное дело.</i>
       </div>
     </card>
@@ -51,8 +51,20 @@ let layout = 'site'
 export default {
   name: 'index',
   layout: layout,
+  data: () => ({
+    layout: ''
+  }),
+  watch: {
+    layout(value, oldValue) {
+      if (oldValue == '') return;
+      console.log(value, oldValue)
+      localStorage.layout = value;
+      location.reload()
+    }
+  },
   mounted() {
     this.$store.dispatch("GET_CATEGORIS")
+    this.layout = localStorage.layout
   },
 }
 </script>

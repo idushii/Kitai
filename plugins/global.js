@@ -25,7 +25,7 @@ Vue.mixin({
     isAuth() { 
       return this.$store.getters.USER.id ? true : false
     }
-  }
+  },
+  data: () => ({
+  })
 })
-
-

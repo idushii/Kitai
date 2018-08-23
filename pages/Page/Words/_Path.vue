@@ -24,7 +24,6 @@
 <script>
 export default {
   name: 'Word',
-  layout: 'site',
   computed: {
     Word() {
       return this.$store.getters.WordByTranslate(this.$route.params.Path)

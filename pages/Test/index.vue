@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'Test',
-  layout: 'site',
+
   async asyncData({ app, params }) {
     return { 
       Page: await app.$axios.$get(`/api/Page/Testing`), 

@@ -27,7 +27,7 @@
 import { mapGetters } from "vuex";
 export default {
   name: 'PageListWords',
-  layout: 'site',
+
   computed: {
     ...mapGetters(['Words', 'WordsCategoris']),
     searchResult() {

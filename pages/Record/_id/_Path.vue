@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'Record',
-  layout: 'site',
+
   computed: {
     id() { return this.$route.params.id },
     Record() {

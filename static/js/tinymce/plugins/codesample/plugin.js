@@ -148,7 +148,7 @@ var codesample = (function () {
         }
         if (parent$$1) {
           language = (parent$$1.className.match(lang) || [
-            ,
+          
             ''
           ])[1];
           grammar = _.languages[language];

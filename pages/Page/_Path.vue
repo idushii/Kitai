@@ -10,7 +10,6 @@
 <script>
 export default {
   name: 'Page-Path',
-  layout: 'site',
   async asyncData({ app, params }) {
     return { Page: await app.$axios.$get(`/api/Page/${params.Path}`) }
   },
@@ -18,6 +17,8 @@ export default {
     edit() {
       this.$router.push(`/Edit/${this.Page.Path}`)
     }
+  },
+  mounted() {
   }
 }
 </script>

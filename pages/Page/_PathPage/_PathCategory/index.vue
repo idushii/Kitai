@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'Category',
-  layout: 'site',
+
   computed: {
     PathPage() { return this.$route.params.PathPage },
     PathCategory() { return this.$route.params.PathCategory },

@@ -10,7 +10,7 @@
 <script>
 export default {
   name: 'Test-Start',
-  layout: 'site',
+
   computed: {
     id() { return this.$route.params.id },
     info() { return this.$store.getters.test(this.id) }
