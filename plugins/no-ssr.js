@@ -11,9 +11,12 @@ Vue.mixin({
             case 'desktop':  { this.setLayout('site'); break; }
             case 'tablet':  { this.setLayout('site-tablet'); break; }
             case 'mobile':  { this.setLayout('site-mobile'); break; }
+            default: { this.setLayout('site'); break; }
           }
         }
-      }
+      } else if (this.setLayout) {
+        this.setLayout('site');
+      } 
     }
   }
 })
