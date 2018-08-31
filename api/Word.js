@@ -3,7 +3,7 @@ import connection from './connection'
 export default {
   List(req, res) {
     console.log({query: 'Word.List'})
-    connection.query(`SELECT * FROM words`, function(err, rows, fields) {
+    connection.query(`SELECT * FROM words limit 50`, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
     });
