@@ -8,3 +8,4 @@ sayana-nuxt.code-workspace
 .gitignore
 
 *.exe
+yarn-error.log
