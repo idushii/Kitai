@@ -104,7 +104,8 @@ export const getters = {
 export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
   async nuxtServerInit({ commit, dispatch }, { req, app }) {
-    console.log({dispatch: 'nuxtServerInit'})
+    console.log({dispatch: 'nuxtServerInit', url: req.url})
+    if (req.url == 'Page/null') return;
     if (req.session && req.session.authUser) { commit('SET_USER', req.session.authUser) }
 
     let data = await app.$axios.$get('api/pages'); commit('SET_MENU', data);

@@ -1,6 +1,6 @@
 <template>
 <div>
-  <card title :clings=isAuth :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
+  <card title clings :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
   <card>
     <div slot="content">
       <div class="search">
@@ -9,16 +9,17 @@
           <option v-for="number in 6" :key="`level-${number}`" :value="number">{{number}} уровень</option>
         </select>
       </div>
-      <div class="WordsCategoris">
+      <!--div class="WordsCategoris">
         <div 
           v-for="tag in WordsCategoris" :key="`tag-${tag.id}`" 
           :class="{select: search.WordsCategoris.indexOf(tag.Title) != -1}" 
           @click="searchTag(tag)"
         >{{tag.Title}}</div>
-      </div>
-      <table-words class="words" :list=searchResult :open=openWord />
+      </div-->
+      <table-words v-if="$root.layout_site == 'site'" class="words" :list=searchResult :open=openWord />
     </div>
   </card>
+  <list-cards-words v-if="$root.layout_site != 'site'" class="words" :list=searchResult to-word="/Page/Words/" /> 
   <card :html=Page.Text />
 </div>
 </template>
@@ -27,7 +28,6 @@
 import { mapGetters } from "vuex";
 export default {
   name: 'PageListWords',
-
   computed: {
     ...mapGetters(['Words', 'WordsCategoris']),
     searchResult() {
@@ -42,7 +42,7 @@ export default {
         }
         result = _result;
       }
-      if (this.search.WordsCategoris.length) {
+      /*if (this.search.WordsCategoris.length) {
         let _result = [];
         for(let word of result){
           let flag = false;
@@ -51,7 +51,7 @@ export default {
         }
 
         result = _result;
-      }
+      }//*/
       return result;
     }
   },
