@@ -8,16 +8,26 @@ Vue.mixin({
       if (localStorage.layout) {
         if (this.setLayout) { 
           switch (localStorage.layout) {
-            case 'desktop':  { this.setLayout('site'); this.layout_site = 'site'; break; }
-            case 'tablet':  { this.setLayout('site-tablet'); this.layout_site = 'site-tablet'; break; }
-            case 'mobile':  { this.setLayout('site-mobile'); this.layout_site = 'site-mobile'; break; }
-            default: { this.setLayout('site'); this.layout_site = 'site'; break; }
+            case 'desktop':  { this.setLayout('site'); break; }
+            case 'tablet':  { this.setLayout('site-tablet'); break; }
+            case 'mobile':  { this.setLayout('site-mobile'); break; }
+            default: { this.setLayout('site'); break; }
           }
         }
       } else if (this.setLayout) {
         this.setLayout('site');
-        this.layout_site = 'site';
       } 
+
+      if (localStorage && localStorage.user) { 
+        //
+        //console.log(localStorage.user)
+        if ( ! this.$store.getters.USER.Login ) {
+          this.$store.commit('SET_USER', JSON.parse(localStorage.user))
+        }
+      }
+      if (localStorage && localStorage.CurrentTest && this.$store.getters.CurrentTest.idTest == null) {
+        this.$store.commit('SET_CURRENT_TEST', JSON.parse(localStorage.CurrentTest))
+      }
     }
   }
 })
