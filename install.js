@@ -17,31 +17,37 @@ if (type == undefined) {
   
   sql = fs.readFileSync('export.sql', 'utf8');
   var connection = mysql.createConnection(mysqlCofig);
+  var connection1 = mysql.createConnection(mysqlCofig);
   connection.connect();
+  connection1.connect();
 
-  let PromiseDelete = new Promise( function(resolve, reject) {
-    connection.query('SHOW DATABASES LIKE "j693917_sayana"', (err, rows, fields) => {
-      if (err) return reject({message: 'Ошибка проверки наличия БД', info: err})
-      if (rows.length) {
-        connection.query('DROP DATABASE IF EXISTS `j693917_sayana`', err => {
-          if (err) return reject({message: 'Ошибка удаления БД', info: err})
-          return resolve({message: 'Успешное удаление БД'})
-        })
-      } else resolve({message: 'БД отсутствует'})
-    })
-  }).catch(console.warn)
+  connection.query('SHOW DATABASES LIKE "j693917_sayana"', (err, rows, fields) => {
+    if (err) return console.warn({message: 'Ошибка проверки наличия БД', info: err})
+    if (rows.length) {
+      console.log({message: 'БД существует'})
 
-  let PromiseCreate = new Promise( function(resolve, reject) {
-    return connection.query(sql, function(err, rows, fields) {
-      if (err) return reject({message: 'Ошибка создания БД.', info: err})
-      return resolve({message: 'БД подготовлена'})
-    });
-  }).catch(console.warn)
+      connection.query('DROP DATABASE `j693917_sayana`', err => {
+        if (err) return console.warn({message: 'Ошибка удаления БД', info: err})
+        console.log({message: 'Успешное удаление БД'})
+
+        connection.query(sql, function(err, rows, fields) {
+          if (err) return console.warn({message: 'Ошибка создания БД.', info: err})
+          console.log({message: 'БД подготовлена'})
+          connection.end()
+        });
+      })
+
+    } else {
+      console.log({message: 'БД отсутствует'})
+      connection.query(sql, function(err, rows, fields) {
+        if (err) return console.warn({message: 'Ошибка создания БД.', info: err})
+        console.log({message: 'БД подготовлена'})
+        connection.end()
+      });
+    }
+  })
+
   
-  PromiseDelete.then(console.log)
-    .then(PromiseCreate.then(console.log))
-  
-  connection.end()
 
 } else if(type == 'words') {
 
