@@ -77,7 +77,7 @@ export default {
       if (typeof(this.back) == 'boolean') this.$emit('back')
       if (typeof(this.back) == 'string') this.$router.push(this.back)
     }
-  },
+  }
 }
 </script>
 
