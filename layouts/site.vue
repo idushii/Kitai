@@ -35,7 +35,7 @@ body, html { margin: 0px; padding: 0px; background-color: rgba(255, 255, 100, 0.
     ". main-menu content ." auto 
     ". . content ." auto 
     "footer footer footer footer" auto
-    / auto minmax(100px, 200px) minmax(300px, 700px) auto;
+    / auto minmax(100px, 300px) minmax(300px, 600px) auto;
 
    #header { grid-area: header }
    #main-menu { grid-area: main-menu }
