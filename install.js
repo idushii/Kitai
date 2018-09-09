@@ -8,23 +8,29 @@ let mysqlCofig = {
   host     : 'localhost',
   user     : 'root',
   password : 'Pass123_',
-  database: 'j693917_sayana',
+  //database: 'j693917_sayana',
   multipleStatements: true
 }
 
 var sql = ''
 if (type == undefined) {
+  
   sql = fs.readFileSync('export.sql', 'utf8');
   var connection = mysql.createConnection(mysqlCofig);
   connection.connect();
-  
+
   let PromiseDelete = new Promise( function(resolve, reject) {
-    return connection.query('DROP DATABASE IF EXISTS `j693917_sayana`', err => {
-      if (err) return reject({message: 'Ошибка удаления БД', info: err})
-      return resolve({message: 'Успешное удаление БД'})
+    connection.query('SHOW DATABASES LIKE "j693917_sayana"', (err, rows, fields) => {
+      if (err) return reject({message: 'Ошибка проверки наличия БД', info: err})
+      if (rows.length) {
+        connection.query('DROP DATABASE IF EXISTS `j693917_sayana`', err => {
+          if (err) return reject({message: 'Ошибка удаления БД', info: err})
+          return resolve({message: 'Успешное удаление БД'})
+        })
+      } else resolve({message: 'БД отсутствует'})
     })
   }).catch(console.warn)
-  
+
   let PromiseCreate = new Promise( function(resolve, reject) {
     return connection.query(sql, function(err, rows, fields) {
       if (err) return reject({message: 'Ошибка создания БД.', info: err})
@@ -35,8 +41,10 @@ if (type == undefined) {
   PromiseDelete.then(console.log)
     .then(PromiseCreate.then(console.log))
   
-  connection.end()}
-else if(type == 'words') {
+  connection.end()
+
+} else if(type == 'words') {
+
   if (level == 1) sql = fs.readFileSync('words-level-1.sql', 'utf8');
   if (level == 2) sql = fs.readFileSync('words-level-2.sql', 'utf8');
   if (level == 3) sql = fs.readFileSync('words-level-3.sql', 'utf8');
