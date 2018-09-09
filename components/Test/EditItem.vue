@@ -1,7 +1,15 @@
 <template>
   <card class="EditItem" :save="save ? EventClose : false" :close="close ? EventClose : false" v-show="!isHide">
     <div v-if="title || close" slot="title">{{title}}</div>
-    <input type="text" v-model="Item.Quest" placeholder="Вопрос">
+    <div class="wrap-title">
+      <input type="text" v-model="Item.Quest" placeholder="Вопрос">
+      <upload-sound 
+        v-model="Item.Sound" 
+        type="Quest" 
+        :name="`Test-${Item.idTest}-${Item.id}`" 
+        width="15"
+      />
+    </div>
     <div class="Info" :style="{'min-height': heightQuest}">
       <no-ssr placeholder="Редактор загружается...">
         <textarea :id="EditorId" :ref="EditorId" :value=Item.Info></textarea>
@@ -92,6 +100,7 @@ export default {
 
 <style lang="scss" scoped>
   .EditItem .content {
+    &>.wrap-title { display: grid; grid-template-columns: 1fr auto; width: calc(100% - .5rem - 4px); padding: .2rem; }
     &>input, &>.Info { width: calc(100% - .5rem - 4px); margin: 0px; margin-bottom: 1rem; font-size: 1.2rem; padding: .2rem; }
     &>.Info { font-size: 1rem; min-height: 250px; }
     &>div {

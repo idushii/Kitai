@@ -1,19 +1,21 @@
 <template>
   <div>
-    <card :next="`/`" next-text="В начало" :edit=$store.getters.USER>
-      <div slot="title">{{info.Title}}</div>
-      <div slot="content">Вы успешно завершили тест. Результаты Вы можете получить позже.</div>
+    <card :next="`/`" next-text="В начало">
+      <div slot="title">{{Test.Title}}</div>
+      <div>Вы успешно завершили тест.</div>
+      <div>Всего вопросов {{CurrentTestResult.count}}, из них правильно {{CurrentTestResult.isTrue}} </div>
     </card>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
-  name: 'Test-Start',
-
+  name: 'Test-Finish',
   computed: {
     id() { return this.$route.params.id },
-    info() { return this.$store.getters.test(this.id) }
+    Test() { return this.$store.getters.test(this.id) },
+    ...mapGetters(['CurrentTestResult', 'CurrentTest']),
   },
   async fetch ({ store, params }) {
     //await store.dispatch('GET_TEST_LIST')

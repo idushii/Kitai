@@ -1,5 +1,5 @@
 <template>
-  <div @click="select" id="icon">
+  <div @click="select" id="icon" :style="{width: this.width+'px', height: this.width+'px' }" >
     <input type="file" ref="file" v-show="false" @change="upload" id="upload">
   </div>
 </template>
@@ -8,7 +8,15 @@
 export default {
   name: 'audio-upload',
   props: {
-    name: { type: [String, Number], default: "name.mp3" }
+    name: { type: [String, Number], default: "name.mp3" },
+    type: { type: String, default: "Word" },
+    width: { type: [String, Number], default: "40" },
+  },
+  computed: {
+    link() { 
+      if (this.type == 'Word') return `/api/Words/Upload/${this.name}`
+      if (this.type == 'Quest') return `/api/Save/TestItem/Upload/${this.name}`
+    }
   },
   methods: {
     select() {
@@ -18,7 +26,7 @@ export default {
       var formData = new FormData();
       var fileUpload = this.$refs.file.files[0];
       formData.append("sound", fileUpload);
-      let result = await this.$axios.$post(`/api/Words/Upload/${this.name}`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      let result = await this.$axios.$post(this.link, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       if (result.result) {
         this.$emit('input', result.Path)
       } else window.alert(result.message)

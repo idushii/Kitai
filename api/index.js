@@ -36,6 +36,7 @@ router.get('/Test/:id', Test.ById)
 router.get('/Test/:id/Items', Test.ByIdItems)
 
 router.post('/Save/TestInfo/', Test.SaveInfo)
+router.post('/Save/TestItem/Upload/:Name', upload.Quest)
 router.post('/Save/TestItem/', Test.SaveItem)
 router.post('/Save/Test/', Test.Save)
 router.post('/New/Test/', Test.New)

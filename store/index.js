@@ -4,11 +4,12 @@ export const state = () => ({
   categoris: [],
   TestList: [],
   Words: [],
-  WordsCategoris: []
+  WordsCategoris: [],
+  CurrentTest: {},
 })
 
 export const mutations = {
-  SET_USER(state, user) { state.authUser = user },
+  SET_USER(state, user) { state.authUser = user; },
   SET_MENU(state, pages) { state.pages = pages; },
   SET_CATEGORIS(state, categoris) { state.categoris = categoris; },
   SET_CATEGORY(state, Category) { 
@@ -61,6 +62,21 @@ export const mutations = {
     if (index === null) { state.TestList.push(Test) } else { state.TestList[index] = Test }
     return Test
   },
+  ADD_CURRENT_TEST_ITEM(state, {idTest, idItem, Answer}) {
+    console.log({commit: 'ADD_CURRENT_TEST_ITEM', payload: {idTest, idItem, Answer}})
+    if ( !state.CurrentTest.idTest ) state.CurrentTest.idTest = idTest
+    if ( !state.CurrentTest.Answers ) state.CurrentTest.Answers = {}
+    state.CurrentTest.Answers[idItem]  = Answer
+    localStorage.CurrentTest = JSON.stringify( state.CurrentTest )
+  },
+  SET_CURRENT_TEST(state, CurrentTest) {
+    console.log({commit: 'SET_CURRENT_TEST', payload: CurrentTest})
+    state.CurrentTest = CurrentTest
+  },
+  CLEAR_CURRENT_TEST(state) {
+    state.CurrentTest = { idTest: null, Answers: {} }
+    localStorage.removeItem('CurrentTest')
+  },
   SET_WORDS(state, Items) { state.Words = Items },
   SET_WORDS_CATEGORIS(state, Items) { state.WordsCategoris = Items },
   SET_WORD(state, Word) {
@@ -88,6 +104,15 @@ export const getters = {
     } else return null
   },
   TestLastID: state => state.TestList.reduce( (max, test) => test.id > max ? test.id : max , null ),
+  CurrentTest: state => state.CurrentTest,
+  CurrentTestResult: (state, getters) => {
+    let result = {}
+    let Test = getters.test(state.CurrentTest.idTest)
+    console.log( 'current', getters.test(state.CurrentTest.idTest) )
+    if ( !Test || !Test.Items ) return {}
+    for (let Item of Test.Items) { result[Item.id]= (state.CurrentTest.Answers[Item.id] * 1 == Item.NumberTrue * 1); }
+    return { count: Object.values(result).length, isTrue: Object.values(result).reduce( (result, item) => item == true ? result + 1 : result, 0 ) }
+  },
   Words: (state, getters) => state.Words.map( word => (
     {...word, tags: getters.WordsCategoris.filter( tag => word.Categoris.split(' ').map(id => id*1).indexOf(tag.id*1) != -1 )}
   ) ),
@@ -104,8 +129,7 @@ export const getters = {
 export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
   async nuxtServerInit({ commit, dispatch }, { req, app }) {
-    console.log({dispatch: 'nuxtServerInit', url: req.url})
-    if (req.url == 'Page/null') return;
+    console.log({dispatch: 'nuxtServerInit'})
     if (req.session && req.session.authUser) { commit('SET_USER', req.session.authUser) }
 
     let data = await app.$axios.$get('api/pages'); commit('SET_MENU', data);
@@ -122,6 +146,7 @@ export const actions = {
     try {
       const data = await this.$axios.$post('/api/login', { username, password })
       commit('SET_USER', data)
+      if (localStorage) localStorage.user = JSON.stringify(data);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')
@@ -132,6 +157,7 @@ export const actions = {
   async logout({ commit }) {
     await this.$axios.$post('/api/logout')
     commit('SET_USER', null)
+    if (localStorage) localStorage.removeItem("user")
   },
   async Reg({commit}, {Login, Pass}) {
     commit('SET_USER', {Login, Pass})

@@ -25,7 +25,7 @@ export default {
   },
   SaveItem: (req, res) => {
     console.log({query: 'Test.SaveItem'})
-    let collumns = ['OrderItem', 'Quest', 'Info', 'Variant_1', 'Variant_2', 'Variant_3', 'Variant_4', 'NumberTrue']
+    let collumns = ['OrderItem', 'Quest', 'Info', 'Variant_1', 'Variant_2', 'Variant_3', 'Variant_4', 'NumberTrue', 'Sound']
       .reduce( (result, collumn) => {result[collumn] = req.body[collumn]; return result}, {} )
   
     connection.query(`UPDATE testings_item SET ? WHERE id='${req.body.id}'`, collumns, function(err, rows, fields) {
@@ -80,7 +80,7 @@ export default {
     for(let i=0; i<Quests.insert.length; i++) {
       PromiseQuests.insert.push(
         new Promise((callTrue, callFalse) => {
-          let collumns = ['idTest', 'OrderItem', 'Quest', 'Info', 'Variant_1', 'Variant_2', 'Variant_3', 'Variant_4', 'NumberTrue']
+          let collumns = ['idTest', 'OrderItem', 'Quest', 'Info', 'Variant_1', 'Variant_2', 'Variant_3', 'Variant_4', 'NumberTrue', 'Sound']
             .reduce( (result, collumn) => {result[collumn] = Quests.insert[i][collumn]; return result}, {} )
           
           connection.query(`INSERT INTO testings_item SET ?`, collumns, function(err, rows, fields) {

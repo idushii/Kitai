@@ -10,10 +10,12 @@
 <script>
 export default {
   name: 'Test-Start',
-
   computed: {
     id() { return this.$route.params.id },
     info() { return this.$store.getters.test(this.id) }
+  },
+  created() {
+    this.$store.commit('CLEAR_CURRENT_TEST')
   },
   async fetch ({ store, params }) {
     //await store.dispatch('GET_TEST_LIST')
