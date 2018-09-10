@@ -58,7 +58,7 @@ if (type == undefined) {
   if (level == 5) sql = fs.readFileSync('words-level-5.sql', 'utf8');
   if (level == 6) sql = fs.readFileSync('words-level-6.sql', 'utf8');
 
-  var connection = mysql.createConnection(mysqlCofig);
+  var connection = mysql.createConnection({...mysqlCofig, database: 'j693917_sayana'});
   connection.connect();
   
   let PromiseInsertWords = new Promise( function(resolve, reject) {
