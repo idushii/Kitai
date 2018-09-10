@@ -11,7 +11,7 @@
         </tr>
     </thead>
       <transition-group name="word" tag="tbody">
-        <tr v-for="word in list" :key="`word-${word.Pinyin}`" :key1="`word-${word.Pinyin}`" @click="open(word)">
+        <tr v-for="word in list" :key="`word-${word.Level}-${word.Pinyin}`" :key1="`word-${word.Level}-${word.Pinyin}`" @click="open(word)">
           <td>L{{word.Level}}</td>
           <td>{{word.Pinyin}}</td>
           <td class="word">{{word.Hieroglyph}}</td>

@@ -15,6 +15,7 @@ export default {
                         Translate LIKE "%${req.body.Text}%" OR 
                         Hieroglyph LIKE "%${req.body.Text}%" OR 
                         Sample LIKE "%${req.body.Text}%"
+                        AND Level = 6
                         Limit 50
                       `, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });

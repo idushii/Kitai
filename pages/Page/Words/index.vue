@@ -36,8 +36,10 @@ export default {
       if (this.search.Text && isNaN(this.search.Text)) {
         let _result = []; let search = this.search.Text.toLowerCase();
         for( let word of result ) {
+          if ( word.Level != 6 ) continue;
           let flag = false;
-          for (let field of this.searchFields) if (word[field].toLowerCase().indexOf(search) != -1) flag = true;
+          for (let field of this.searchFields) 
+            if (word[field].toLowerCase().indexOf(search) != -1) flag = true;
           if (flag) _result.push(word)
         }
         result = _result;
