@@ -8,6 +8,19 @@ export default {
       return res.json(rows);
     });
   },
+  Search(req, res) {
+    console.log({query: 'Word.Search'})
+    connection.query(`SELECT * FROM words WHERE 
+                        Pinyin LIKE "%${req.body.Text}%" OR 
+                        Translate LIKE "%${req.body.Text}%" OR 
+                        Hieroglyph LIKE "%${req.body.Text}%" OR 
+                        Sample LIKE "%${req.body.Text}%"
+                        Limit 50
+                      `, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
+      return res.json(rows);
+    });
+  },
   Categoris(req, res) {
     console.log({query: 'Word.Categoris'})
     connection.query(`SELECT * FROM words_categoris`, function(err, rows, fields) {

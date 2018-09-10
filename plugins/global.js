@@ -33,4 +33,9 @@ Vue.mixin({
   data: () => ({
     layout_site: 'site'
   }),
+  methods: {
+    async wait(time) {
+      return new Promise( resolve => setTimeout( function() { resolve() }, time ) )
+    }
+  }
 })

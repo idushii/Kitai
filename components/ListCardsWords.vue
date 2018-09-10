@@ -6,7 +6,7 @@
       mode="out-in"
     >
       <router-link :to="`${ToWord}${word.Translate}`" :key="`word-${word.uid}`">
-        <word :word="word" />
+        <word :Word="word" />
       </router-link>
     </transition>
   </div>

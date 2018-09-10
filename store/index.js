@@ -84,6 +84,13 @@ export const mutations = {
     let index = state.Words.reduce( (result, word, index) => word.id == Word.id ? index : result, null );
     if (index !== null) { state.Words[index] = Word; return { result: true, Element: Word } }
     return { result: false, message: 'Невозможно обновить локальные данные слова'}
+  },
+  APPEND_WORDS(state, Words = []) {
+    for ( let Word of Words ) {
+      if ( !state.Words.map( word => word.id ).includes( Word.id ) ) {
+        state.Words.push(Word)
+      }
+    }
   }
 }
 
@@ -272,6 +279,15 @@ export const actions = {
     } else 
       return data
   },
+  async SEARCH_WORD({commit}, Text) {
+    let {data, status} = await this.$axios.post(`/api/words/search/`, { Text })
+    if (status == 200) {
+      commit('APPEND_WORDS', data)
+      return true
+    } else 
+      return data
+
+  }
 
   
   

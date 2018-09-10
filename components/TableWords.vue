@@ -2,24 +2,24 @@
   <table>
     <thead>
         <tr>
-            <th>#</th>
+            <th>Уровень</th>
             <th>Пиньинь</th>
             <th>Иероглиф</th>
             <th>Перевод</th>
-            <th>Уровень</th>
-            <th>Категории</th>
+            <th>Описание</th>
             <th>Звучание</th>
         </tr>
     </thead>
       <transition-group name="word" tag="tbody">
-        <tr v-for="(word, index) in list" :key="`word-${word.Pinyin}`" :key1="`word-${word.Pinyin}`" @click="open(word)">
-          <td>{{index+1}}</td>
+        <tr v-for="word in list" :key="`word-${word.Pinyin}`" :key1="`word-${word.Pinyin}`" @click="open(word)">
+          <td>L{{word.Level}}</td>
           <td>{{word.Pinyin}}</td>
           <td class="word">{{word.Hieroglyph}}</td>
           <td>{{word.Translate}}</td>
-          <td>{{word.Level}}</td>
-          <td>{{word.tags.map(tag => tag.Title).join(', ')}}</td>
-          <td class="audio"><audio-file v-if="word.Sound" ref="audio" :src="word.Sound" width="20" center /></td>
+          <td>{{word.Sample}}</td>
+          <td class="audio">
+            <audio-file v-if="word.Sound" ref="audio" :src="word.Sound" width="20" center />
+          </td>
         </tr>
       </transition-group>
   </table>

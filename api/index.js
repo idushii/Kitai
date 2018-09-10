@@ -20,6 +20,7 @@ router.get('/page/:Path', Page.ByPath)
 router.post('/save/page/:Path', Page.SaveByPath)
 
 router.get('/words', Word.List)
+router.post('/Words/Search', Word.Search)
 router.get('/WordsCategoris', Word.Categoris)
 router.post('/Words/Upload/:Name', upload.Word)
 router.post('/Words/:id', Word.Save)

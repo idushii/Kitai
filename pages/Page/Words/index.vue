@@ -1,6 +1,6 @@
 <template>
 <div>
-  <card title :clings=isAuth :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
+  <card title clings :edit="isAuth" edit-link="/Edit/Words">HSK cловарь</card>
   <card>
     <div slot="content">
       <div class="search">
@@ -9,25 +9,25 @@
           <option v-for="number in 6" :key="`level-${number}`" :value="number">{{number}} уровень</option>
         </select>
       </div>
-      <div class="WordsCategoris">
+      <!--div class="WordsCategoris">
         <div 
           v-for="tag in WordsCategoris" :key="`tag-${tag.id}`" 
           :class="{select: search.WordsCategoris.indexOf(tag.Title) != -1}" 
           @click="searchTag(tag)"
         >{{tag.Title}}</div>
-      </div>
-      <table-words class="words" :list=searchResult :open=openWord />
+      </div-->
+      <table-words v-if="$root.layoutName == 'site'" class="words" :list=searchResult :open=openWord />
     </div>
   </card>
+  <list-cards-words v-if="$root.layoutName != 'site'" class="words" :list=searchResult to-word="/Page/Words/" /> 
   <card :html=Page.Text />
 </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'PageListWords',
-
   computed: {
     ...mapGetters(['Words', 'WordsCategoris']),
     searchResult() {
@@ -42,7 +42,7 @@ export default {
         }
         result = _result;
       }
-      if (this.search.WordsCategoris.length) {
+      /*if (this.search.WordsCategoris.length) {
         let _result = [];
         for(let word of result){
           let flag = false;
@@ -51,7 +51,7 @@ export default {
         }
 
         result = _result;
-      }
+      }//*/
       return result;
     }
   },
@@ -68,6 +68,11 @@ export default {
       WordsCategoris: []
     }
   }),
+  watch: {
+    'search.Text'(to, from) {
+      this.$store.dispatch('SEARCH_WORD', to)
+    }
+  },
   methods: {
     openWord(Word) { this.$router.push(`/Page/Words/${Word.Translate}`) },
     clearString(str) { return str.replace(/\r?\n/g, "") },
@@ -77,7 +82,8 @@ export default {
         this.search.WordsCategoris.push(tag.id)
       else 
         this.search.WordsCategoris.splice(index, 1)
-    }
+    },
+    ...mapActions(['SEARCH_WORD'])
   }
 }
 </script>
