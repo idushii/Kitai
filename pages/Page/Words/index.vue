@@ -16,10 +16,10 @@
           @click="searchTag(tag)"
         >{{tag.Title}}</div>
       </div-->
-      <table-words v-if="$root.layoutName == 'site'" class="words" :list=searchResult :open=openWord />
+      <!--table-words v-if="$root.layoutName == 'site'" class="words" :list=searchResult :open=openWord /-->
     </div>
   </card>
-  <list-cards-words v-if="$root.layoutName != 'site'" class="words" :list=searchResult to-word="/Page/Words/" /> 
+  <list-cards-words class="words" :list=searchResult to-word="/Page/Words/" /> 
 </div>
 </template>
 
@@ -35,8 +35,8 @@ export default {
       if (this.search.Text && isNaN(this.search.Text)) {
         let _result = []; let search = this.search.Text.toLowerCase();
         for( let word of result ) {
-          console.log(result.map( item => item.Pinyin ), word.Pinyin)
-          if ( !result.map( item => item.Pinyin ).includes( word.Pinyin ) ) continue;
+          //console.log(result.map( item => item.Pinyin ), word.Pinyin)
+          if ( _result.map( item => item.Pinyin ).includes( word.Pinyin ) ) continue;
 
           let flag = false;
           for (let field of this.searchFields) 
