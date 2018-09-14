@@ -29,6 +29,9 @@ export default {
         if (routes[index].path == '/' ) routes[index].redirect = '/Page/Main'
       }
       return routes
+    },
+    scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 }
     }
   },
   /*

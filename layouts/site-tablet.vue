@@ -20,6 +20,11 @@ export default {
     pageFooter,
     mainMenu,
     adminMenu
+  },
+  watch: {
+    '$route'(PageRoute, from) {
+      this.$root.$emit('transition')
+    }
   }
 }
 </script>
