@@ -35,7 +35,9 @@ export default {
       if (this.search.Text && isNaN(this.search.Text)) {
         let _result = []; let search = this.search.Text.toLowerCase();
         for( let word of result ) {
-          if ( word.Level != 6 ) continue;
+          console.log(result.map( item => item.Pinyin ), word.Pinyin)
+          if ( !result.map( item => item.Pinyin ).includes( word.Pinyin ) ) continue;
+
           let flag = false;
           for (let field of this.searchFields) 
             if (word[field].toLowerCase().indexOf(search) != -1) flag = true;

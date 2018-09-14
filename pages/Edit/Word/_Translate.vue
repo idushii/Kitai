@@ -24,13 +24,6 @@
         <upload-sound v-model="Word.Sound" :name="Word.id" />
       </div>
     </card>
-    <card>
-      <div slot="title">Примечание</div>
-      <div slot="content">
-        <p>Я планирую сделать возможным запись звука прямо на сайте. Еще думаю надо озвучкой через бота, но это сложно и в триал версии есть свои ограничения.</p>
-        <p>И, кстати, было бы полезно сделать поле примечание, наверное. Точно не хуже.</p>
-      </div>
-    </card>
   </div>
 </template>
 
@@ -64,8 +57,8 @@ export default {
 <style lang="scss" scoped>
 .EditWord {
   display: grid; grid-gap: var(--gap); 
-  grid-template-areas: "title title" "tags info" "tags sound";
-  grid-template-columns: 1fr 3fr;
+  grid-template-areas: "title title" "info tags" "sound sound";
+  grid-template-columns: 1fr 1fr;
 
   .title { grid-area: title; }
   .info { grid-area: info; }
