@@ -20,7 +20,6 @@
     </div>
   </card>
   <list-cards-words v-if="$root.layoutName != 'site'" class="words" :list=searchResult to-word="/Page/Words/" /> 
-  <card :html=Page.Text />
 </div>
 </template>
 
