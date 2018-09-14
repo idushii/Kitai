@@ -9,6 +9,14 @@ export default {
       return res.json(rows);
     });
   },
+  ListInCategory: (req, res) => {
+    console.log({query: 'Test.ListInCategory', payload: req.params})
+    connection.query(`SELECT * FROM testings WHERE idCategory = ${req.params.idCategory}`, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
+      return res.json(rows);
+    });
+
+  },  
   ById: (req, res) => {
     console.log({query: 'Test.ById'})
     connection.query(`SELECT * FROM testings WHERE id="${req.params.id}"`, function(err, rows, fields) {
