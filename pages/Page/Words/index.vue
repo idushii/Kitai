@@ -16,10 +16,10 @@
           @click="searchTag(tag)"
         >{{tag.Title}}</div>
       </div-->
-      <table-words v-if="$root.layoutName == 'site'" class="words" :list=searchResult :open=openWord />
+      <!--table-words v-if="$root.layoutName == 'site'" class="words" :list=searchResult :open=openWord /-->
     </div>
   </card>
-  <list-cards-words v-if="$root.layoutName != 'site'" class="words" :list=searchResult to-word="/Page/Words/" /> 
+  <list-cards-words class="words" :list=searchResult to-word="/Page/Words/" /> 
 </div>
 </template>
 
