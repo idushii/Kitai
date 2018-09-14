@@ -19,6 +19,9 @@
           <td>{{word.Sample}}</td>
           <td class="audio">
             <audio-file v-if="word.Sound" ref="audio" :src="word.Sound" width="20" center />
+            <no-ssr v-else>
+              <voice :text="word.Hieroglyph" voice="zh-CN" @click.native=empty />
+            </no-ssr>
           </td>
         </tr>
       </transition-group>
@@ -33,6 +36,7 @@ export default {
     open: { type: Function, default: () => {} }
   },
   methods: {
+    empty() {}
   },
 }
 </script>

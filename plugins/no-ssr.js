@@ -1,5 +1,8 @@
 import Vue from 'vue'
 
+import Voice from '~/components/Voice.vue'
+Vue.component('Voice', Voice)
+
 Vue.mixin({
   mounted() { this.setVersionSite() },
   updated() { this.setVersionSite() },

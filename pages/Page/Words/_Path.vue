@@ -12,7 +12,10 @@
         <div class="translate">Перевод: {{Word.Translate}} </div>
         <div class="tags">Категория: {{tags}} </div>
         <div class="audio">
-          <audio-file :src="Word.Sound" center />
+          <audio-file v-if="Word.Sound" :src="Word.Sound" center />
+          <no-ssr v-else>
+            <voice :text="Word.Hieroglyph" voice="zh-CN" />
+          </no-ssr>
         </div>
       </div>
     </section>

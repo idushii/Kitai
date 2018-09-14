@@ -12,6 +12,9 @@
       </div>
       <div class="audio">
         <audio-file v-if="Word.Sound" :src="Word.Sound" center />
+        <no-ssr v-else>
+          <voice :text="Word.Hieroglyph" voice="zh-CN" @click.stop="$emit('click')"/>
+        </no-ssr>
       </div>
     </section>
   </card>
@@ -20,7 +23,9 @@
 <script>
 export default {
   name: "ComponentWord",
-  props: { Word: { type: Object, default: () => ({}) } }
+  props: { Word: { type: Object, default: () => ({}) } },
+  methods: {
+  },
 }
 </script>
 
