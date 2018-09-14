@@ -33,6 +33,7 @@ router.post('/save/Record/:id', Category.SaveRecord)
 router.post('/remove/Record/:id', Category.RemoveRecord)
 
 router.get('/TestList', Test.List)
+router.get('/TestList/Category/:idCategory', Test.ListInCategory)
 router.get('/Test/:id', Test.ById)
 router.get('/Test/:id/Items', Test.ByIdItems)
 

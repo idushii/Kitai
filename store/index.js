@@ -98,7 +98,7 @@ export const getters = {
   USER: state => state.authUser,
   menu: state => state.pages.filter( page => page.ShowItem ),
   categoris: state => state.categoris,
-  Category: state => Path => state.categoris.filter( Cat => Cat.Path == Path ).pop(),
+  Category: (state, getter) => Path => ({ ...state.categoris.find( Cat => Cat.Path == Path ) }),
   CategoryById: state => id => state.categoris.filter( Cat => Cat.id == id ).pop(),
   isLoadTestList: state => state.TestList.length,
   test: state => id => state.TestList.filter( test => test.id == id ).pop(),
