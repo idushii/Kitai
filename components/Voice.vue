@@ -1,12 +1,12 @@
 <template>
   <div 
-    @click.native="play" 
+    @click="play" 
     id="icon" :style="{width: this.width+'px', height: this.width+'px', margin: center ? '10px auto' : '10px'}"
   ></div>
 </template>
 
 <script>
-
+import { mapGetters } from "vuex";
 export default {
   name: 'Voice',
   props: {
@@ -15,10 +15,8 @@ export default {
     width: { type: [String, Number], default: "40" },
     center: { type: Boolean, default: false },
   },
-  data: () => ({
-    ListVoice: []
-  }),
   computed: {
+    ...mapGetters(['ListVoice']),
     indexVoice() {
       for (let index = 0; index < this.ListVoice.length; index++) {
         let ItemVoice = this.ListVoice[index]
@@ -35,18 +33,6 @@ export default {
       let v = speechSynthesis.speak( t )
     }
   },
-  async mounted() {
-    let thisB = this;
-
-    window.speechSynthesis.onvoiceschanged = function() {
-      thisB.$root.$emit( 'getVoices', speechSynthesis.getVoices() )
-    }
-
-    this.$root.$on('getVoices', function(ListVoice) {
-      for (let voice of ListVoice) thisB.ListVoice.push( voice )
-    })
-  }
-
 }
 
 

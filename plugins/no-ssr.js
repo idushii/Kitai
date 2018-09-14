@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { mapMutations, mapGetters, mapActions } from "vuex";
 
 import Voice from '~/components/Voice.vue'
 Vue.component('Voice', Voice)
@@ -31,6 +32,14 @@ Vue.mixin({
       if (localStorage && localStorage.CurrentTest && this.$store.getters.CurrentTest.idTest == null) {
         this.$store.commit('SET_CURRENT_TEST', JSON.parse(localStorage.CurrentTest))
       }
-    }
+      
+      let thisB = this;
+      window.speechSynthesis.onvoiceschanged = function() {
+        thisB.SET_VOICES( speechSynthesis.getVoices() )
+      }
+
+    },
+    ...mapMutations(['SET_VOICES'])
+
   }
 })

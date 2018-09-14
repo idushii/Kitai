@@ -6,6 +6,7 @@ export const state = () => ({
   Words: [],
   WordsCategoris: [],
   CurrentTest: {},
+  ListVoice: []
 })
 
 export const mutations = {
@@ -91,6 +92,9 @@ export const mutations = {
         state.Words.push(Word)
       }
     }
+  },
+  SET_VOICES(state, ListVoice) { 
+    state.ListVoice = ListVoice; 
   }
 }
 
@@ -130,7 +134,8 @@ export const getters = {
     for(let Cat of state.categoris) for(let Record of Cat.Records)
       if (Record.id == id) return {...Record, idCategory: Cat.id, idPage: Cat.idPage}
   },
-  PageById: state => id => state.pages.filter( page => page.id == id ).pop()
+  PageById: state => id => state.pages.filter( page => page.id == id ).pop(),
+  ListVoice: state => state.ListVoice,
 }
 
 export const actions = {
