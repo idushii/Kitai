@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- База данных: `j693917_sayana`
 --
-CREATE DATABASE IF NOT EXISTS `j693917_sayana` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `j693917_sayana`;
 
 -- --------------------------------------------------------
 
