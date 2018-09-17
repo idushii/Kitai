@@ -25,6 +25,7 @@ export default {
   router: {
     extendRoutes (routes) {
       for(let index in routes) {
+        if (routes[index].path == '/Page/Words/Private' ) routes[index].redirect = '/Page/Words-Private'
         if (routes[index].path == '/Page/Testing' ) routes[index].redirect = '/Test'
         if (routes[index].path == '/' ) routes[index].redirect = '/Page/Main'
       }
