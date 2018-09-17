@@ -21,6 +21,21 @@ export default {
       return res.json(rows);
     });
   },
+  SearchByUser(req, res) {
+    console.log({query: 'Word.SearchByUser'}, req.params, req.body)
+    let sql = `SELECT * FROM words WHERE 
+      (Pinyin LIKE "%${req.body.Text}%" OR 
+      Translate LIKE "%${req.body.Text}%" OR 
+      Hieroglyph LIKE "%${req.body.Text}%" OR 
+      Sample LIKE "%${req.body.Text}%")
+      AND idUser = "${req.params.id}"
+      Limit 50`
+    console.log(sql)
+    connection.query(sql, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
+      return res.json(rows);
+    });
+  },
   Categoris(req, res) {
     console.log({query: 'Word.Categoris'})
     connection.query(`SELECT * FROM words_categoris`, function(err, rows, fields) {

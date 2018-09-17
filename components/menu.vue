@@ -8,7 +8,7 @@
           v-for="Cat in page.Categoris" 
           :key="`page-${page.id}-category-${Cat.id}`" 
           v-if="!Cat.isHide"
-          :to="`/Page/${page.Path}/${Cat.Path}`" 
+          :to="Cat.Path.indexOf('/') == -1 ? `/Page/${page.Path}/${Cat.Path}` : Cat.Path" 
           class="category"
         > 
           {{Cat.Title}} 

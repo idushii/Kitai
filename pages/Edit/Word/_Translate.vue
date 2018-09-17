@@ -33,16 +33,16 @@ export default {
   name: 'Edit-Word',
   layout: 'document',
   computed: {
-    tags() { return this.$store.getters.WordsCategoris },
+    tags() { return this.$store.getters['Words/WordsCategoris'] },
   },
   asyncData({store, params}) {
     return {
-      Word: {...store.getters.WordByTranslate(params.Translate)},
+      Word: {...store.getters['Words/WordByTranslate'](params.Translate)},
     }
   },
   methods: {
     async save() {
-      let result = await this.$store.dispatch('SET_WORD', this.Word)
+      let result = await this.$store.dispatch('Words/SET_WORD', this.Word)
       console.log(result)
       if (result.result) {
         this.$router.push(`/Page/Words/${this.Word.Translate}`)
@@ -57,8 +57,9 @@ export default {
 <style lang="scss" scoped>
 .EditWord {
   display: grid; grid-gap: var(--gap); 
-  grid-template-areas: "title title" "info tags" "sound sound";
+  grid-template-areas: "title title" "info tags" "sound sound" ". .";
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto 1fr;
 
   .title { grid-area: title; }
   .info { grid-area: info; }

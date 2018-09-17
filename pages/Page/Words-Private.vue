@@ -9,14 +9,6 @@
           <option v-for="number in 6" :key="`level-${number}`" :value="number">{{number}} уровень</option>
         </select>
       </div>
-      <!--div class="WordsCategoris">
-        <div 
-          v-for="tag in WordsCategoris" :key="`tag-${tag.id}`" 
-          :class="{select: search.WordsCategoris.indexOf(tag.Title) != -1}" 
-          @click="searchTag(tag)"
-        >{{tag.Title}}</div>
-      </div-->
-      <!--table-words v-if="$root.layoutName == 'site'" class="words" :list=searchResult :open=openWord /-->
     </div>
   </card>
   <list-cards-words class="words" :list=searchResult to-word="/Page/Words/" /> 
@@ -28,7 +20,9 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'PageListWords',
   computed: {
-    ...mapGetters(['Words', 'WordsCategoris']),
+    ...mapGetters('Words', ['WordsByUser']),
+    ...mapGetters('User', {idUser: 'id'}),
+    Words() { return this.WordsByUser(this.idUser) },
     searchResult() {
       let result = this.Words;
       result = result.filter( word => word.Level <= this.search.Level )
@@ -45,16 +39,6 @@ export default {
         }
         result = _result;
       }
-      /*if (this.search.WordsCategoris.length) {
-        let _result = [];
-        for(let word of result){
-          let flag = false;
-          for(let tag of this.search.WordsCategoris) if (word.Categoris.split(" ").map(id => id*1).indexOf(tag) != -1) flag = true;
-          if (flag) _result.push(word)
-        }
-
-        result = _result;
-      }//*/
       return result;
     }
   },
@@ -73,7 +57,7 @@ export default {
   }),
   watch: {
     'search.Text'(to, from) {
-      this.$store.dispatch('SEARCH_WORD', to)
+      this.$store.dispatch('Words/SEARCH_WORD_BY_USER', to)
     }
   },
   methods: {
@@ -86,7 +70,7 @@ export default {
       else 
         this.search.WordsCategoris.splice(index, 1)
     },
-    ...mapActions(['SEARCH_WORD'])
+    ...mapActions(['Words/SEARCH_WORD'])
   }
 }
 </script>

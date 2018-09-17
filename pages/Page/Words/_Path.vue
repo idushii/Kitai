@@ -29,10 +29,10 @@ export default {
   name: 'Word',
   computed: {
     Word() {
-      return this.$store.getters.WordByTranslate(this.$route.params.Path)
+      return this.$store.getters["Words/WordByTranslate"](this.$route.params.Path)
     },
     tags() {
-      return this.$store.getters.WordsCategorisGyIDs(this.Word.Categoris.split(' ').map(id => id*1)).map( tag => tag.Title ).join(', ')
+      return this.$store.getters["Words/WordsCategorisGyIDs"](this.Word.Categoris.split(' ').map(id => id*1)).map( tag => tag.Title ).join(', ')
     }
   },
 }

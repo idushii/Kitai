@@ -22,6 +22,7 @@ router.post('/save/page/:Path', Page.SaveByPath)
 
 router.get('/words', Word.List)
 router.post('/Words/Search', Word.Search)
+router.post('/Words/search-by-user/:id', Word.SearchByUser)
 router.get('/WordsCategoris', Word.Categoris)
 router.post('/Words/Upload/:Name', upload.Word)
 router.post('/Words/:id', Word.Save)

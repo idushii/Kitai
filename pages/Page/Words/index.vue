@@ -28,7 +28,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: 'PageListWords',
   computed: {
-    ...mapGetters(['Words', 'WordsCategoris']),
+    ...mapGetters('Words', ['Words', 'WordsCategoris']),
     searchResult() {
       let result = this.Words;
       result = result.filter( word => word.Level <= this.search.Level )
@@ -73,7 +73,7 @@ export default {
   }),
   watch: {
     'search.Text'(to, from) {
-      this.$store.dispatch('SEARCH_WORD', to)
+      this.$store.dispatch('Words/SEARCH_WORD', to)
     }
   },
   methods: {
@@ -86,7 +86,7 @@ export default {
       else 
         this.search.WordsCategoris.splice(index, 1)
     },
-    ...mapActions(['SEARCH_WORD'])
+    ...mapActions(['Words/SEARCH_WORD'])
   }
 }
 </script>

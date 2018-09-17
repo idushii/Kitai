@@ -9,6 +9,8 @@ export default {
   }),
   getters: {
     USER: state => ({Login: state.Login, FIO: state.FIO, Email: state.Email, id: state.id}),
+    Profile: state => ({Login: state.Login, FIO: state.FIO, Email: state.Email, id: state.id}),
+    id: state => state.id,
     isAuth: state => state.id !== null ? true: false,
   },
   mutations: {

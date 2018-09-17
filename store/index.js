@@ -2,8 +2,6 @@ export const state = () => ({
   pages: [],
   categoris: [],
   TestList: [],
-  Words: [],
-  WordsCategoris: [],
   CurrentTest: {},
   ListVoice: [],
   config: {
@@ -13,9 +11,10 @@ export const state = () => ({
 })
 
 import User from './User'
+import Words from './Words'
 
 export const modules = {
-  User
+  User, Words
 }
 
 export const mutations = {
@@ -86,21 +85,6 @@ export const mutations = {
     state.CurrentTest = { idTest: null, Answers: {} }
     localStorage.removeItem('CurrentTest')
   },
-  SET_WORDS(state, Items) { state.Words = Items },
-  SET_WORDS_CATEGORIS(state, Items) { state.WordsCategoris = Items },
-  SET_WORD(state, Word) {
-    console.log({commit: 'SET_WORD', payload: Word})
-    let index = state.Words.reduce( (result, word, index) => word.id == Word.id ? index : result, null );
-    if (index !== null) { state.Words[index] = Word; return { result: true, Element: Word } }
-    return { result: false, message: 'Невозможно обновить локальные данные слова'}
-  },
-  APPEND_WORDS(state, Words = []) {
-    for ( let Word of Words ) {
-      if ( !state.Words.map( word => word.id ).includes( Word.id ) ) {
-        state.Words.push(Word)
-      }
-    }
-  },
   SET_VOICES(state, ListVoice) { 
     state.ListVoice = ListVoice; 
   }
@@ -131,13 +115,6 @@ export const getters = {
     for (let Item of Test.Items) { result[Item.id]= (state.CurrentTest.Answers[Item.id] * 1 == Item.NumberTrue * 1); }
     return { count: Object.values(result).length, isTrue: Object.values(result).reduce( (result, item) => item == true ? result + 1 : result, 0 ) }
   },
-  Words: (state, getters) => state.Words.map( word => (
-    {...word, tags: getters.WordsCategoris.filter( tag => word.Categoris.split(' ').map(id => id*1).indexOf(tag.id*1) != -1 )}
-  ) ),
-  WordsCategoris: state => state.WordsCategoris,
-  WordsCategorisGyIDs: (state, getters) => ids => getters.WordsCategoris.filter( tag => ids.indexOf(tag.id*1) != -1 ),
-  WordByTranslate: state => Translate => state.Words.filter( word => word.Translate == Translate ).pop(),
-  WordsByUser: (state, getter) => state.Words,//.filter( word => word.idUser == getter.USER.id ),
   Record: state => id => {
     for(let Cat of state.categoris) for(let Record of Cat.Records)
       if (Record.id == id) return {...Record, idCategory: Cat.id, idPage: Cat.idPage}
@@ -158,8 +135,8 @@ export const actions = {
     let data = await app.$axios.$get('api/pages'); commit('SET_MENU', data);
     data = await this.$axios.$get('/api/categoris/ListWithRecords'); commit('SET_CATEGORIS', data)
     data = await this.$axios.$get('/api/TestList'); commit('SET_TEST_LIST', data)
-    data = await this.$axios.$get('/api/Words'); commit('SET_WORDS', data)
-    data = await this.$axios.$get('/api/WordsCategoris'); commit('SET_WORDS_CATEGORIS', data)
+    data = await this.$axios.$get('/api/Words'); commit('Words/SET_WORDS', data)
+    data = await this.$axios.$get('/api/WordsCategoris'); commit('Words/SET_WORDS_CATEGORIS', data)
 
     //dispatch('GET_MENU')
     //dispatch('GET_CATEGORIS')
@@ -169,22 +146,6 @@ export const actions = {
     console.log({action: 'SET_MENU'})
     let data = await this.$axios.$post('/api/pages')
     return commit('SET_MENU', data)
-  },
-  async GET_WORDS({ commit }) {
-    console.log({action: 'GET_WORDS'})
-    let data = await this.$axios.$get('/api/Words')
-    return commit('SET_WORDS', data)
-  },
-  async GET_WORDS_CATEGORIS({ commit }) {
-    console.log({action: 'GET_WORDS_CATEGORIS'})
-    let data = await this.$axios.$get('/api/WordsCategoris')
-    return commit('SET_WORDS_CATEGORIS', data)
-  },
-  async SET_WORD({commit}, Word) {
-    console.log({action: 'SET_WORD', payload: Word})
-    let result = await this.$axios.$post(`/api/Words/${Word.id}`, Word)
-    if (result.result) { commit('SET_WORD', Word); return { result: true } }
-    else return result
   },
   async GET_MENU({ commit }) {
     console.log({action: 'GET_MENU'})
@@ -262,15 +223,6 @@ export const actions = {
     } else 
       return data
   },
-  async SEARCH_WORD({commit}, Text) {
-    let {data, status} = await this.$axios.post(`/api/words/search/`, { Text })
-    if (status == 200) {
-      commit('APPEND_WORDS', data)
-      return true
-    } else 
-      return data
-
-  }
 
   
   
