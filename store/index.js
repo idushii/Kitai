@@ -5,7 +5,11 @@ export const state = () => ({
   Words: [],
   WordsCategoris: [],
   CurrentTest: {},
-  ListVoice: []
+  ListVoice: [],
+  config: {
+    host: 'http://localhost:8080/',
+    app_id: 6047893
+  }
 })
 
 import User from './User'
@@ -144,8 +148,11 @@ export const getters = {
 
 export const actions = {
   // nuxtServerInit is called by Nuxt.js before server-rendering every page
-  async nuxtServerInit({ commit, dispatch }, { req, app }) {
+  async nuxtServerInit({ commit, dispatch, state }, { req, app }) {
     console.log({dispatch: 'nuxtServerInit'})
+
+    state.config.host = app.context.env.host;
+
     if (req.session && req.session.authUser) { commit('SET_USER', req.session.authUser) }
 
     let data = await app.$axios.$get('api/pages'); commit('SET_MENU', data);

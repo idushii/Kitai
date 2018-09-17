@@ -1,6 +1,8 @@
 import bodyParser from 'body-parser'
 import session from 'express-session'
 
+let host = 'http://localhost:8080/';
+
 export default {
   head: {
     title: 'Язык китая',
@@ -14,7 +16,8 @@ export default {
     ],    
   },
   env: {
-    //baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000/',
+    host,
   },
   modules: [
     '@nuxtjs/axios',
@@ -56,8 +59,9 @@ export default {
   ],
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'http://ovz1.j693917.1qyn6.vps.myjino.ru/',
-    baseURL: 'http://localhost:8080/',
+    //baseURL: 'http://ovz1.j693917.1qyn6.vps.myjino.ru/',
+    //baseURL: 'http://localhost:8080/',
+    baseURL: host,
     //baseURL: 'http://192.168.43.13:80/',
     //baseURL: 'http://169.254.185.70:80/',
   },
