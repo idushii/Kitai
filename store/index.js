@@ -1,5 +1,4 @@
 export const state = () => ({
-  authUser: { Login: '' },
   pages: [],
   categoris: [],
   TestList: [],
@@ -9,8 +8,13 @@ export const state = () => ({
   ListVoice: []
 })
 
+import User from './User'
+
+export const modules = {
+  User
+}
+
 export const mutations = {
-  SET_USER(state, user) { state.authUser = user; },
   SET_MENU(state, pages) { state.pages = pages; },
   SET_CATEGORIS(state, categoris) { state.categoris = categoris; },
   SET_CATEGORY(state, Category) { 
@@ -99,7 +103,6 @@ export const mutations = {
 }
 
 export const getters = {
-  USER: state => state.authUser,
   menu: state => state.pages.filter( page => page.ShowItem ),
   categoris: state => state.categoris,
   Category: (state, getter) => Path => ({ ...state.categoris.find( Cat => Cat.Path == Path ) }),
@@ -130,6 +133,7 @@ export const getters = {
   WordsCategoris: state => state.WordsCategoris,
   WordsCategorisGyIDs: (state, getters) => ids => getters.WordsCategoris.filter( tag => ids.indexOf(tag.id*1) != -1 ),
   WordByTranslate: state => Translate => state.Words.filter( word => word.Translate == Translate ).pop(),
+  WordsByUser: (state, getter) => state.Words,//.filter( word => word.idUser == getter.USER.id ),
   Record: state => id => {
     for(let Cat of state.categoris) for(let Record of Cat.Records)
       if (Record.id == id) return {...Record, idCategory: Cat.id, idPage: Cat.idPage}
@@ -153,39 +157,6 @@ export const actions = {
     //dispatch('GET_MENU')
     //dispatch('GET_CATEGORIS')
     //dispatch('GET_TEST_LIST')
-  },
-  async login({ commit }, { username, password }) {
-    try {
-      const data = await this.$axios.$post('/api/login', { username, password })
-      commit('SET_USER', data)
-      if (localStorage) localStorage.user = JSON.stringify(data);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        throw new Error('Bad credentials')
-      }
-      throw error
-    }
-  },
-  async logout({ commit }) {
-    await this.$axios.$post('/api/logout')
-    commit('SET_USER', null)
-    if (localStorage) localStorage.removeItem("user")
-  },
-  async Reg({commit}, {Login, Pass}) {
-    commit('SET_USER', {Login, Pass})
-    return true;
-  },
-  async Reg2({commit, getters, dispatch}, {FIO, Email}) {
-    try {
-      let data = await this.$axios.$post('/api/users/reg', {...getters.USER, FIO, Email})
-      commit('SET_USER', {...getters.USER, id: data.id})
-    } catch(error) { throw new Error(error.response.data.message) }
-  },
-  async SET_PROFILE({commit, getter}, User) {
-    try {
-      let data = await this.$axios.$post('/api/users/profile', User)
-      commit('SET_USER', User)
-    } catch(error) { throw new Error(error.response.data.message) }
   },
   async SET_MENU({ commit }) {
     console.log({action: 'SET_MENU'})

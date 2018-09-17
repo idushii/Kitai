@@ -27,7 +27,7 @@ Vue.component('ListCardsWords', ListCardsWords)
 Vue.mixin({
   computed: {
     isAuth() { 
-      return this.$store.getters.USER && this.$store.getters.USER.id ? true : false
+      return this.$store.getters['User/isAuth'] ? true : false
     }
   },
   data: () => ({

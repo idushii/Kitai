@@ -1,6 +1,6 @@
 <template>
   <div id="admin-menu" class="menu">
-    <div class="title">Управление, {{isAuth ? $store.getters.USER.Login : ''}}</div>
+    <div class="title">Управление, {{isAuth ? $store.getters['User/USER'].Login : ''}}</div>
     <template v-if="isAuth">
       <nuxt-link :to="`/Edit/${$route.params.Path}`"> Изменить </nuxt-link>
       <nuxt-link to="/propertis"> Настройки </nuxt-link>
@@ -9,6 +9,7 @@
     </template>
     <template v-else>
       <nuxt-link to="/auth"> Авторизация </nuxt-link>
+      <nuxt-link to="/auth-vk"> Авторизация ВК</nuxt-link>
       <nuxt-link to="/reg"> Регистрация </nuxt-link>
     <nuxt-link to="/propertis"> Настройки </nuxt-link>
     </template>

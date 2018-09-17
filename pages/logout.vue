@@ -10,7 +10,7 @@ export default {
   }),
   async created() {
     try {
-      await this.$store.dispatch('logout')
+      await this.$store.dispatch('User/LogOut')
       this.$router.push({path: '/'})
     } catch (e) {
       this.formError = e.message

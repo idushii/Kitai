@@ -29,9 +29,9 @@ export default {
   methods: {
     async login() {
       try {
-        await this.$store.dispatch('login', {
-          username: this.formUsername,
-          password: this.formPassword
+        await this.$store.dispatch('User/Login', {
+          Login: this.formUsername,
+          Pass: this.formPassword
         })
         this.formUsername = ''
         this.formPassword = ''

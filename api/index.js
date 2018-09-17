@@ -8,6 +8,7 @@ import Category from './Category'
 import upload from './upload'
 
 router.post('/login', Auth.Login)
+router.post('/login/vk', Auth.LoginVK)
 router.post('/users/reg', Auth.Reg)
 router.post('/users/profile', Auth.UpdateProfile)
 router.post('/logout', Auth.LogOut)

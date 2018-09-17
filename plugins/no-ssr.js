@@ -25,8 +25,8 @@ Vue.mixin({
       if (localStorage && localStorage.user) { 
         //
         //console.log(localStorage.user)
-        if ( ! this.$store.getters.USER.Login ) {
-          this.$store.commit('SET_USER', JSON.parse(localStorage.user))
+        if ( ! this.$store.getters["User/USER"].Login ) {
+          //this.$store.commit('SET_USER', JSON.parse(localStorage.user))
         }
       }
       if (localStorage && localStorage.CurrentTest && this.$store.getters.CurrentTest.idTest == null) {
@@ -40,6 +40,5 @@ Vue.mixin({
 
     },
     ...mapMutations(['SET_VOICES'])
-
   }
 })
