@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 14 2018 г., 05:00
+-- Время создания: Сен 17 2018 г., 09:00
 -- Версия сервера: 10.1.33-MariaDB
 -- Версия PHP: 7.2.6
 
@@ -53,7 +53,8 @@ INSERT INTO `categoris` (`id`, `idPage`, `isShowInMenu`, `Path`, `Title`, `Info`
 (12, 6, 1, 'liter', 'Литература', 'Литература по китайскому языку'),
 (13, 6, 1, 'audio-mat', 'Аудио материалы', 'Аудио материалы по китайскому языку'),
 (14, 6, 1, 'video-mat', 'Видео материалы', 'Видео материалы по китайскому языку'),
-(15, 6, 1, 'poslovica', 'Пословицы и поговорки', 'Пословицы и поговорки китайского языка');
+(15, 6, 1, 'poslovica', 'Пословицы и поговорки', 'Пословицы и поговорки китайского языка'),
+(16, 3, 1, 'Private', 'Личный словарь', 'Ваш личный словарь на сайте');
 
 -- --------------------------------------------------------
 
@@ -178,6 +179,7 @@ CREATE TABLE `users` (
   `Login` varchar(20) NOT NULL,
   `Pass` text NOT NULL,
   `Token` text NOT NULL,
+  `TokenVK` text NOT NULL,
   `Email` text NOT NULL,
   `FIO` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -186,9 +188,10 @@ CREATE TABLE `users` (
 -- Дамп данных таблицы `users`
 --
 
-INSERT INTO `users` (`id`, `Login`, `Pass`, `Token`, `Email`, `FIO`) VALUES
-(1, 'User', '123', '', '', ''),
-(2, 'User12', '123', '', 'ivan43@mail.ru', 'Иван Иванов');
+INSERT INTO `users` (`id`, `Login`, `Pass`, `Token`, `TokenVK`, `Email`, `FIO`) VALUES
+(1, 'User', '123', '', '123', '', ''),
+(2, 'User12', '123', '', '', 'ivan43@mail.ru', 'Иван Иванов'),
+(6, 'nic34@ngs.ru', 'sdfgdjdjfgsdjfaksjdf', '', '9c9f1af8dc87bae8ed89083614d26016c52f58f346f39343f621205a08af87eff43f58bded576b20e5bc3', 'nic34@ngs.ru', '');
 
 -- --------------------------------------------------------
 
@@ -10352,6 +10355,24 @@ INSERT INTO `words_categoris` (`id`, `idParent`, `Title`, `Info`) VALUES
 (6, 1, 'Машины', ''),
 (7, 1, 'Автобусы', '');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `words_users`
+--
+
+CREATE TABLE `words_users` (
+  `id` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `Pinyin` text NOT NULL,
+  `Hieroglyph` text NOT NULL,
+  `Translate` text NOT NULL,
+  `Level` int(11) NOT NULL,
+  `Categoris` text NOT NULL,
+  `Sound` text,
+  `Sample` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Индексы сохранённых таблиц
 --
@@ -10409,6 +10430,13 @@ ALTER TABLE `words_categoris`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `words_users`
+--
+ALTER TABLE `words_users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `words_ibfk_1` (`idUser`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -10416,7 +10444,7 @@ ALTER TABLE `words_categoris`
 -- AUTO_INCREMENT для таблицы `categoris`
 --
 ALTER TABLE `categoris`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `pages`
@@ -10446,7 +10474,7 @@ ALTER TABLE `testings_item`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `words`
@@ -10459,6 +10487,12 @@ ALTER TABLE `words`
 --
 ALTER TABLE `words_categoris`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT для таблицы `words_users`
+--
+ALTER TABLE `words_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
