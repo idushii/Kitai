@@ -2,6 +2,7 @@ import bodyParser from 'body-parser'
 import session from 'express-session'
 
 let host = 'http://localhost:8080/';
+//host = 'http://ovz1.j693917.1qyn6.vps.myjino.ru/';
 
 export default {
   head: {
