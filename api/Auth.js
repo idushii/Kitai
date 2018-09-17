@@ -52,7 +52,8 @@ export default {
   },
   LoginVK: async (req, res) => {
     let app_id = 6047893
-    let host = 'http://localhost:8080'
+    //let host = 'http://localhost:8080'
+    let host = 'http://ovz1.j693917.1qyn6.vps.myjino.ru'
     let client_secret = 'L9sQgC9lyj1zzVUqohEc'
     let code = req.body.code
 
