@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 17 2018 г., 09:33
+-- Время создания: Сен 17 2018 г., 14:19
 -- Версия сервера: 10.1.33-MariaDB
 -- Версия PHP: 7.2.6
 
@@ -191,7 +191,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `Login`, `Pass`, `Token`, `TokenVK`, `Email`, `FIO`) VALUES
 (1, 'User', '123', '', '123', '', ''),
 (2, 'User12', '123', '', '', 'ivan43@mail.ru', 'Иван Иванов'),
-(6, 'nic34@ngs.ru', 'sdfgdjdjfgsdjfaksjdf', '', '9c9f1af8dc87bae8ed89083614d26016c52f58f346f39343f621205a08af87eff43f58bded576b20e5bc3', 'nic34@ngs.ru', '');
+(6, 'nic34@ngs.ru', 'sdfgdjdjfgsdjfaksjdf', '', 'b8a7f03b074f2723cab5fcd216331c6ba0d7815e318707c65949e9d788b40b54258a0847e49d75bcda614', 'nic34@ngs.ru', '');
 
 -- --------------------------------------------------------
 
@@ -216,8 +216,8 @@ CREATE TABLE `words` (
 --
 
 INSERT INTO `words` (`id`, `idUser`, `Pinyin`, `Hieroglyph`, `Translate`, `Level`, `Categoris`, `Sound`, `Sample`) VALUES
-(1, 1, 'měi guó', '美国', 'Америка', 2, '4 2', '/words/1', ''),
-(2, 1, 'chē', '车', 'машина', 1, '1 6', '/words/2', ''),
+(1, 6, 'měi guó', '美国', 'Америка', 2, '4 2', '/words/1', ''),
+(2, 6, 'chē', '车', 'машина', 1, '1 6', '/words/2', ''),
 (3, 1, 'ài', '爱', 'любить; любовь; любимый', 1, '', NULL, '爱祖国 [ài zǔguó] — любить родину; 母爱'),
 (4, 1, 'bā', '八', 'восемь; восьмой', 1, '', NULL, ''),
 (5, 1, 'bàba', '爸爸', 'папа, тятя', 1, '', NULL, ''),
@@ -10480,7 +10480,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `words`
 --
 ALTER TABLE `words`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10095;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10106;
 
 --
 -- AUTO_INCREMENT для таблицы `words_categoris`
