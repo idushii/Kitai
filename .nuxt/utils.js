@@ -112,7 +112,7 @@ export async function setContext(app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {"baseUrl":"http://localhost:3000/","host":"http://localhost:3000/"}
+      env: {"baseUrl":"http://localhost:3000/","host":"http://ovz1.j693917.1qyn6.vps.myjino.ru/"}
     }
     // Only set once
     if (context.req) app.context.req = context.req
