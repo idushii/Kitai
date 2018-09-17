@@ -18,7 +18,7 @@
     "dev": "nodemon --watch api --exec \" nuxt -p 8080 \" ",
     "nuxt": "nuxt -p 8080",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "nuxt start -p 8080",
     "install": "node install.js"
   },
   "devDependencies": {
