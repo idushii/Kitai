@@ -21,10 +21,13 @@ router.get('/page/:Path', Page.ByPath)
 router.post('/save/page/:Path', Page.SaveByPath)
 
 router.get('/words', Word.List)
+router.get('/words/get/:Translate', Word.Word)
+router.get('/Words/user/:idUser', Word.ListByUser)
 router.post('/Words/Search', Word.Search)
 router.post('/Words/search-by-user/:id', Word.SearchByUser)
 router.get('/WordsCategoris', Word.Categoris)
 router.post('/Words/Upload/:Name', upload.Word)
+router.post('/Words/Add', Word.New)
 router.post('/Words/:id', Word.Save)
 
 router.get('/categoris/ListWithRecords', Category.ListWithRecords)

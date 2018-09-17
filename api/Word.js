@@ -8,6 +8,20 @@ export default {
       return res.json(rows);
     });
   },
+  ListByUser(req, res) {
+    console.log({query: 'Word.ListByUser'})
+    connection.query(`SELECT * FROM words WHERE idUser = ${req.params.idUser} limit 50`, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
+      return res.json(rows);
+    });
+  },
+  Word(req, res) {
+    console.log({query: 'Word.Word'})
+    connection.query(`SELECT * FROM words Where Translate = '${req.params.Translate}'`, function(err, rows, fields) {
+      if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
+      return res.json(rows[0]);
+    });
+  },
   Search(req, res) {
     console.log({query: 'Word.Search'})
     connection.query(`SELECT * FROM words WHERE 
@@ -30,7 +44,6 @@ export default {
       Sample LIKE "%${req.body.Text}%")
       AND idUser = "${req.params.id}"
       Limit 50`
-    console.log(sql)
     connection.query(sql, function(err, rows, fields) {
       if (err) return res.status(500).json({ message: 'Ошибка запроса', info: err });
       return res.json(rows);
@@ -53,4 +66,23 @@ export default {
       return res.json({result: true});
     });//*/
   },
+  New(req, res) {
+    console.log({query: 'Word.New'})
+    let fields = ['idUser', 'Pinyin', 'Hieroglyph', 'Translate', 'Level', 'Categoris', 'Sound']
+    let collumns = fields.reduce( (result, collumn) => {result[collumn] = req.body[collumn] || ''; return result}, {} )
+
+    connection.query(`INSERT INTO words SET ?`, collumns, function(err, rows, fields) {
+      if (err) return res.status(401).json({ message: 'Ошибка запроса', info: err }); 
+      return LAST_INSERT_ID().then( id => res.json({result: true, id}) );
+    });//*/
+  },
+}
+
+function LAST_INSERT_ID() {
+  return new Promise( (rTrue, rFalse) => {
+    connection.query(`SELECT LAST_INSERT_ID()`, function(err, rows, fields) {
+      if (err) return rFalse({ message: 'Ошибка запроса', info: err });
+      return rTrue(rows[0]['LAST_INSERT_ID()'])
+    });
+  } )
 }

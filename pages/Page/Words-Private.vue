@@ -12,6 +12,7 @@
     </div>
   </card>
   <list-cards-words class="words" :list=searchResult to-word="/Page/Words/" /> 
+  <fab-add to="/Add/Words" />
 </div>
 </template>
 
@@ -41,6 +42,9 @@ export default {
       }
       return result;
     }
+  },
+  mounted() {
+    this.$store.dispatch('Words/GET_WORDS_BY_USER')
   },
   async asyncData({ app, params }) {
     return { 
